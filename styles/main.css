@@ -21,6 +21,10 @@ body {
 .title {
 	color: #0d6efd;
 }
+.home-title {
+	margin-top: 50px;
+	color: #0d6efd;
+}
 .subtitle {
 	color: dodgerblue;
 }
