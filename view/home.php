@@ -32,24 +32,24 @@
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="navbar-nav ml-auto ms-5">
 					<li class="nav-item">
-						<a class="nav-link active" href="#">Inicio</a>
+						<a class="nav-link active" href="home.php">Inicio</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="staticPages/proposito.html">Articulos</a>
+						<a class="nav-link" href="products.php">Articulos</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="staticPages/proposito.html">Clientes</a>
+						<a class="nav-link" href="clients.php">Clientes</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="staticPages/proposito.html">Ventas</a>
+						<a class="nav-link" href="sales.php">Ventas</a>
 					</li>
                     <?php
                         if($_SESSION['TIPO']=='admin'){
                             echo "<li class='nav-item'>
-                                    <a class='nav-link' href='staticPages/proposito.html'>Proveedores</a>
+                                    <a class='nav-link' href='providers.php'>Proveedores</a>
                                 </li>";
                             echo "<li class='nav-item'>
-                                    <a class='nav-link' href='staticPages/proposito.html'>Usuarios</a>
+                                    <a class='nav-link' href='users.php'>Usuarios</a>
                                 </li>";
                         }
                     ?>
