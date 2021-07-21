@@ -1,0 +1,33 @@
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+html,
+body {
+	height: 100%;
+}
+.login-box {
+	width: 30rem;
+	margin: auto;
+	margin-top: 150px;
+	text-align: center;
+}
+.login-card {
+	padding: 15px;
+}
+.title {
+	color: #0d6efd;
+}
+.home-title {
+	margin-top: 50px;
+	color: #0d6efd;
+}
+.subtitle {
+	color: dodgerblue;
+}
+.login-error {
+	color: red;
+}
