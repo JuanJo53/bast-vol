@@ -72,7 +72,7 @@
 					</li> -->
 				</ul>
                 <form method="post" action="../controller/logout.php">
-                    <button class="btn btn-danger text-md- ms-5" type="submit">Cerrar Sesion</button>
+                    <button class="btn btn-outline-danger text-md- ms-5" type="submit">Cerrar Sesion</button>
                 </form>
 			</div>
 		</div>
