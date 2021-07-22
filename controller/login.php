@@ -14,7 +14,7 @@
                 if($password==$row['USR_PASSWORD']){
                     $cod_usuario=$row['USR_CODIGO'];                          
                     $_SESSION['CODIGO']=$cod_usuario;
-                    $_SESSION['USSUARIO']=$user;
+                    $_SESSION['USUARIO']=$user;
                     $_SESSION['PASSWORD']=$row['USR_PASSWORD'];
                     $_SESSION['TIPO']=$row['USR_TIPO'];
                     $_SESSION['LOGIN_STATUS']='exito';
