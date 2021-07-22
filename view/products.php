@@ -49,6 +49,9 @@
                                     <a class='nav-link' href='providers.php'>Proveedores</a>
                                 </li>";
                             echo "<li class='nav-item'>
+                                    <a class='nav-link' href='categories.php'>Categorias</a>
+                                </li>";
+                            echo "<li class='nav-item'>
                                     <a class='nav-link' href='users.php'>Usuarios</a>
                                 </li>";
                         }
