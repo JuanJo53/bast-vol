@@ -52,8 +52,25 @@ INSERT INTO `usuario`(`USR_ID`, `USR_NOMBRES`, `USR_APELLIDOS`, `USR_TELEFONO`, 
 VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8])
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
+---------ELIMINAR FILA - MODULO ARTICULOS--------------------------------------------------------------------
 
+DELETE FROM `articulo` WHERE `articulo`.`ART_ID` = 3		(EJEMPLO)
 
+---------ELIMINAR FILA - MODULO VENTAS--------------------------------------------------------------------
+
+DELETE FROM `venta` WHERE `venta`.`VEN_ID` = 1			(EJEMPLO)
+
+---------ELIMINAR FILA - MODULO CLIENTES--------------------------------------------------------------------
+
+DELETE FROM `cliente` WHERE `cliente`.`CLI_ID` = 2		(EJEMPLO)
+
+---------ELIMINAR FILA - MODULO PROVEEDORES--------------------------------------------------------------------
+
+DELETE FROM `proveedor` WHERE `proveedor`.`PRO_ID` = 1		(EJEMPLO)
+
+---------ELIMINAR FILA - MODULO USUARIOS--------------------------------------------------------------------
+
+DELETE FROM `usuario` WHERE `usurio`.`USR_ID` = 3		(EJEMPLO)
 
 
 
