@@ -1,18 +1,64 @@
-------MODULO ARTICULOS - VISTA GENERAL-----
+------MODULO ARTICULOS - VISTA GENERAL-------------------------------------------------
 
 SELECT a.ART_ID, a.ART_NOMBRE, b.CAT_NOMBRE, c.PRO_NOMBRE, a.ART_PRECIO, a.ART_STOCK 
 FROM articulo a, categoria b, proveedor c
 WHERE a.ID_CATEGORIA=b.CAT_ID
 AND a.ID_PROVEEDOR=c.PRO_ID
 
-------MODULO VENTAS - VISTA GENERAL-----
+------MODULO VENTAS - VISTA GENERAL----------------------------------------------------
 
 SELECT a.VEN_ID, b.USR_NOMBRES, c.CLI_NOMBRE, c.CLI_NOMBRE, a.VEN_TOTAL 
 FROM venta a, usuario b, cliente c
 WHERE a.ID_USUARIO=b.USR_ID
 AND a.ID_CLIENTE=c.CLI_ID
 
-------MODULO CLIENTES- VISTA GENERAL-----
+------MODULO CLIENTES - VISTA GENERAL--------------------------------------------------
 
 SELECT a.CLI_ID, a.CLI_NOMBRE, a.CLI_NIT, a.CLI_TELEFONO, a.CLI_CORREO
 FROM cliente a
+
+------MODULO PROVEEDORES - VISTA GENERAL-----------------------------------------------
+
+SELECT * FROM `proveedor`
+
+------MODULO USUARIOS - VISTA GENERAL--------------------------------------------------
+
+SELECT * FROM `usuario`
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------INSERTAR DATOS - MODULO ARTICULOS----------------------------------------------------------------
+
+INSERT INTO `articulo`(`ART_ID`, `ART_NOMBRE`, `ID_CATEGORIA`, `ID_PROVEEDOR`, `ART_PRECIO`, `ART_STOCK`) 
+VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6])
+
+----------INSERTAR DATOS - MODULO VENTAS--------------------------------------------------------------------
+
+INSERT INTO `venta`(`VEN_ID`, `VEN_FECHA`, `ID_USUARIO`, `ID_CLIENTE`, `VEN_TOTAL`)
+VALUES ([value-1],[value-2],[value-3],[value-4],[value-5])
+
+----------INSERTAR DATOS - MODULO CLIENTES------------------------------------------------------------------
+
+INSERT INTO `cliente`(`CLI_ID`, `CLI_NOMBRE`, `CLI_NIT`, `CLI_TELEFONO`, `CLI_CORREO`)
+VALUES ([value-1],[value-2],[value-3],[value-4],[value-5])
+
+----------INSERTAR DATOS - MODULO PROVEEDORES---------------------------------------------------------------
+
+INSERT INTO `proveedor`(`PRO_ID`, `PRO_NOMBRE`, `PRO_CORREO`, `PRO_TELEFONO`, `PRO_CIUDAD`, `PRO_PAIS`)
+VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6])
+
+----------INSERTAR DATOS - MODULO USUARIOS------------------------------------------------------------------
+
+INSERT INTO `usuario`(`USR_ID`, `USR_NOMBRES`, `USR_APELLIDOS`, `USR_TELEFONO`, `USR_CORREO`, `USR_USER`, `USR_PASSWORD`, `USR_TIPO`)
+VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8])
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
