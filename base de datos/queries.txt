@@ -26,56 +26,83 @@ SELECT * FROM `proveedor`
 SELECT * FROM `usuario`
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-----------INSERTAR DATOS - MODULO ARTICULOS----------------------------------------------------------------
+-----------------INSERTAR REGISTRO - MODULO ARTICULOS----------------------------------------------------------------
 
 INSERT INTO `articulo`(`ART_ID`, `ART_NOMBRE`, `ID_CATEGORIA`, `ID_PROVEEDOR`, `ART_PRECIO`, `ART_STOCK`) 
 VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6])
 
-----------INSERTAR DATOS - MODULO VENTAS--------------------------------------------------------------------
+-----------------INSERTAR REGISTRO - MODULO VENTAS--------------------------------------------------------------------
 
 INSERT INTO `venta`(`VEN_ID`, `VEN_FECHA`, `ID_USUARIO`, `ID_CLIENTE`, `VEN_TOTAL`)
 VALUES ([value-1],[value-2],[value-3],[value-4],[value-5])
 
-----------INSERTAR DATOS - MODULO CLIENTES------------------------------------------------------------------
+----------------INSERTAR REGISTRO - MODULO CLIENTES------------------------------------------------------------------
 
 INSERT INTO `cliente`(`CLI_ID`, `CLI_NOMBRE`, `CLI_NIT`, `CLI_TELEFONO`, `CLI_CORREO`)
 VALUES ([value-1],[value-2],[value-3],[value-4],[value-5])
 
-----------INSERTAR DATOS - MODULO PROVEEDORES---------------------------------------------------------------
+---------------INSERTAR REGISTRO - MODULO PROVEEDORES---------------------------------------------------------------
 
 INSERT INTO `proveedor`(`PRO_ID`, `PRO_NOMBRE`, `PRO_CORREO`, `PRO_TELEFONO`, `PRO_CIUDAD`, `PRO_PAIS`)
 VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6])
 
-----------INSERTAR DATOS - MODULO USUARIOS------------------------------------------------------------------
+---------------INSERTAR REGISTRO - MODULO USUARIOS------------------------------------------------------------------
 
 INSERT INTO `usuario`(`USR_ID`, `USR_NOMBRES`, `USR_APELLIDOS`, `USR_TELEFONO`, `USR_CORREO`, `USR_USER`, `USR_PASSWORD`, `USR_TIPO`)
 VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8])
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
----------ELIMINAR FILA - MODULO ARTICULOS--------------------------------------------------------------------
+------------------------------------------ELIMINAR REGISTRO - MODULO ARTICULOS--------------------------------------------------------------------
 
 DELETE FROM `articulo` WHERE `articulo`.`ART_ID` = 3		(EJEMPLO)
 
----------ELIMINAR FILA - MODULO VENTAS--------------------------------------------------------------------
+------------------------------------------ELIMINAR FILA - MODULO VENTAS--------------------------------------------------------------------
 
 DELETE FROM `venta` WHERE `venta`.`VEN_ID` = 1			(EJEMPLO)
 
----------ELIMINAR FILA - MODULO CLIENTES--------------------------------------------------------------------
+------------------------------------------ELIMINAR REGISTRO - MODULO CLIENTES--------------------------------------------------------------------
 
 DELETE FROM `cliente` WHERE `cliente`.`CLI_ID` = 2		(EJEMPLO)
 
----------ELIMINAR FILA - MODULO PROVEEDORES--------------------------------------------------------------------
+------------------------------------------ELIMINAR REGISTRO - MODULO PROVEEDORES--------------------------------------------------------------------
 
 DELETE FROM `proveedor` WHERE `proveedor`.`PRO_ID` = 1		(EJEMPLO)
 
----------ELIMINAR FILA - MODULO USUARIOS--------------------------------------------------------------------
+------------------------------------------ELIMINAR REGISTRO - MODULO USUARIOS--------------------------------------------------------------------
 
 DELETE FROM `usuario` WHERE `usurio`.`USR_ID` = 3		(EJEMPLO)
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------MODIFICAR REGISTRO - MODULO ARTICULO---------------------------------------------------------------------
 
+UPDATE `articulo` 
+SET `ART_NOMBRE`=[value-2],`ID_CATEGORIA`=[value-3],`ID_PROVEEDOR`=[value-4],`ART_PRECIO`=[value-5],`ART_STOCK`=[value-6] 
+WHERE `ART_ID`=[value-1]
 
+------------------------------------------MODIFICAR REGISTRO - MODULO VENTAS---------------------------------------------------------------------
 
+UPDATE `venta` 
+SET `VEN_FECHA`=[value-2],`ID_USUARIO`=[value-3],`ID_CLIENTE`=[value-4],`VEN_TOTAL`=[value-5] 
+WHERE `VEN_ID`=[value-1]
+
+------------------------------------------MODIFICAR REGISTRO - MODULO CLIENTES---------------------------------------------------------------------
+
+UPDATE `cliente` 
+SET `CLI_NOMBRE`=[value-2],`CLI_NIT`=[value-3],`CLI_TELEFONO`=[value-4],`CLI_CORREO`=[value-5] 
+WHERE `CLI_ID`=[value-1]
+
+------------------------------------------MODIFICAR REGISTRO - MODULO PROVEEDORES---------------------------------------------------------------------
+
+UPDATE `proveedor` 
+SET `PRO_NOMBRE`=[value-2],`PRO_CORREO`=[value-3],`PRO_TELEFONO`=[value-4],`PRO_CIUDAD`=[value-5],`PRO_PAIS`=[value-6] 
+WHERE `PRO_ID`=[value-1]
+
+------------------------------------------MODIFICAR REGISTRO - MODULO USUARIOS---------------------------------------------------------------------
+
+UPDATE `usuario`
+SET `USR_NOMBRES`=[value-2],`USR_APELLIDOS`=[value-3],`USR_TELEFONO`=[value-4],`USR_CORREO`=[value-5],`USR_USER`=[value-6],`USR_PASSWORD`=[value-7],`USR_TIPO`=[value-8]
+WHERE `USR_ID`=[value-1]
 
 
 
