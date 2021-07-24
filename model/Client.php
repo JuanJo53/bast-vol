@@ -1,8 +1,8 @@
 <?php
 include_once 'db.php';
-	class User extends DB{
+	class Client extends DB{
 		var $sql2;
-		public function getUser($user,$pass){
+		public function getAllClients(){
 			$sql = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass'";
 			$result = $this->connect()->query($sql);
 			$numrows = $result->num_rows;
@@ -12,14 +12,14 @@ include_once 'db.php';
 				return false;
 			}
 		}
-		public function getIdentifire($user,$pass){
+		public function getClientById($id){
 			$sql = "SELECT identificador FROM user where nombre = '$user' and contraseña = '$pass'";
 			$result = $this->connect()->query($sql);
 			$row2 = $result->fetch_assoc();
             $valor=$row2['identificador'];
             return $valor;
 		}
-		public function getSesionAlumnoACA($user,$pass){
+		public function updateClient($id){
 			$sql2 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'ACA'";
 			$result2 = $this->connect()->query($sql2);
 			//$numrows2 = $result2->num_rows;
@@ -27,7 +27,7 @@ include_once 'db.php';
 			$name2=$row2['iduser'];
 			return $name2;
 		}
-		public function getSesionAlumnoMOD($user,$pass){
+		public function deleteClient($id){
 			$sql3 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'MOD'";
 			$result3 = $this->connect()->query($sql3);
 			//$numrows3 = $result3->num_rows;
@@ -35,15 +35,7 @@ include_once 'db.php';
 			$name3=$row3['iduser'];
 			return $name3;
 		}
-		public function getSesionProfesor($user,$pass){
-			$sql4 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'PRO'";
-			$result4 = $this->connect()->query($sql4);
-			//$numrows4 = $result4->num_rows;
-			$row4 = $result4->fetch_assoc();
-			$name4=$row4['iduser'];
-			return $name4;
-		}
-		public function getSesionAdmi($user,$pass){
+		public function newClient($user,$pass){
 			$sql5 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'ADM'";
 			$result5 = $this->connect()->query($sql5);
 			//$numrows5 = $result5->num_rows;
