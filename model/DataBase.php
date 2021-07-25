@@ -1,5 +1,4 @@
-<?php 
-
+<?php
     class DB{
         private $sever;
         private $user;

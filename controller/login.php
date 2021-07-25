@@ -29,9 +29,9 @@
             $_SESSION['LOGIN_STATUS']=  "El usuario no existe"; 
             header('Location: ../index.php');
         } 
-    } else { 
+    }else{ 
         $_SESSION['LOGIN_STATUS'] = "ERROR: No se pudo ejecutar $sql. ".$conn->error; 
         header('Location: ../index.php');
-    } 
+    }
     $conn->close();
 ?>
