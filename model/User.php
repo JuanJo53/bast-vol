@@ -1,14 +1,22 @@
 <?php
 	include_once 'DataBase.php';
 	class User extends DB{
-		var $sql2;
 		public function login($user,$pass){
 			$sql = 'SELECT * FROM usuario WHERE USR_USER="'.$user.'"';
 			$result = $this->connect()->query($sql);
             return $result;
+		}	
+		public function getAllUsers(){
+			$sql = "SELECT * FROM usuario";
+			$result = $this->connect()->query($sql);
+			if($result->num_rows>0){
+				return $result;
+			}else{
+				return false;
+			}
 		}
 		public function getUserById($id){
-			$sql = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass'";
+			$sql = "SELECT * FROM usuario where nombre = '$user' and contraseña = '$pass'";
 			$result = $this->connect()->query($sql);
 			$numrows = $result->num_rows;
 			if($numrows == 1){
@@ -17,14 +25,7 @@
 				return false;
 			}
 		}
-		public function getAllUsers(){
-			$sql2 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'ACA'";
-			$result2 = $this->connect()->query($sql2);
-			//$numrows2 = $result2->num_rows;
-			$row2 = $result2->fetch_assoc();
-			$name2=$row2['iduser'];
-			return $name2;
-		}
+
 		public function updateUser($id){
 			$sql3 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'MOD'";
 			$result3 = $this->connect()->query($sql3);
@@ -41,13 +42,15 @@
 			$name4=$row4['iduser'];
 			return $name4;
 		}
-		public function newUser($user,$pass){
-			$sql5 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'ADM'";
-			$result5 = $this->connect()->query($sql5);
-			//$numrows5 = $result5->num_rows;
-			$row5 = $result5->fetch_assoc();
-			$name5=$row5['iduser'];
-			return $name5;
+		public function newUser($name,$lastname,$phone,$email,$username,$password,$type){
+			$sql = "INSERT INTO usuario(USR_NOMBRES, USR_APELLIDOS, USR_TELEFONO, USR_CORREO, USR_USER, USR_PASSWORD, USR_TIPO) 
+			VALUES ('$name','$lastname','$phone','$email','$username','$password','$type')";
+			$result = $this->connect();
+			if(mysqli_query($result, $sql)){
+				return 'Exito!';
+			}else{
+				return "Error: " . $sql . "<br>" . mysqli_error($result);
+			}
 		}
 	}
 
