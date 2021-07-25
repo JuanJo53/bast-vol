@@ -1,12 +1,12 @@
 <?php
-    require '../dbConnection.php';
+    include '../model/User.php';
     session_start();
 
-    $user=$_POST['USER'];
+    $username=$_POST['USER'];
     $password=$_POST['PASSWORD'];
 
-    $sql = 'SELECT * FROM usuario WHERE USR_USER="'.$user.'"';
-    $result = $conn->query($sql);
+    $user = new User;
+    $result = $user->login($username,$password);
 
     if ($result) { 
         if ($result->num_rows > 0) { 
@@ -14,7 +14,7 @@
                 if($password==$row['USR_PASSWORD']){
                     $cod_usuario=$row['USR_CODIGO'];                          
                     $_SESSION['CODIGO']=$cod_usuario;
-                    $_SESSION['USUARIO']=$user;
+                    $_SESSION['USUARIO']=$username;
                     $_SESSION['PASSWORD']=$row['USR_PASSWORD'];
                     $_SESSION['TIPO']=$row['USR_TIPO'];
                     $_SESSION['LOGIN_STATUS']='exito';

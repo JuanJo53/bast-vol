@@ -1,13 +1,11 @@
 <?php
-include_once 'db.php';
+	include_once 'DataBase.php';
 	class User extends DB{
 		var $sql2;
 		public function login($user,$pass){
-			$sql = "SELECT identificador FROM user where nombre = '$user' and contraseña = '$pass'";
+			$sql = 'SELECT * FROM usuario WHERE USR_USER="'.$user.'"';
 			$result = $this->connect()->query($sql);
-			$row2 = $result->fetch_assoc();
-            $valor=$row2['identificador'];
-            return $valor;
+            return $result;
 		}
 		public function getUserById($id){
 			$sql = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass'";
