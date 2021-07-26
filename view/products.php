@@ -7,7 +7,32 @@
     <title>BAST-VOL | Articulos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/main.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>    
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).on("click", ".openEditModal", function () {
+            var id = $(this).data('id');
+            $(".idInput #prod_idE").val( id );
+            $.getJSON('../controller/products/getProductDetails.php',{'prod_id':id} ,function( data ) {
+                console.log(data);
+                $(".nameInput #prod_nameE").val( data.ART_NOMBRE );
+                $(".catInput #prod_idCatE").val( data.CAT_ID );
+                $(".provInput #prod_idProvE").val( data.PRO_ID );
+                $(".priceInput #prod_priceE").val( data.ART_PRECIO);
+                $(".stockInput #prod_stockE").val( data.ART_STOCK);
+            });
+        });
+    </script>
+    <script>
+        $(document).on("click", ".openDeleteModal", function () {
+            var id = $(this).data('id');
+            $(".idDelInput #prod_idD").val( id );
+        });
+    </script>
+
 </head>
 <body data-spy="scroll" data-target="#navbar" data-offset="56">
 	<!--Header-->
@@ -114,40 +139,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>Otto</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>
-                                <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editArticleModal" role="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                                    </svg>
-                                </button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delArticleModal" role="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                        <?php
+                            include_once '../controller/products/getProducts.php';
+                            echo showProducts();
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -158,48 +153,48 @@
     <div class="modal fade" id="newArticleModal" tabindex="-1" aria-labelledby="newArticleModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nuevo Articulo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form method='post'>
-            <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="article_name" class="col-form-label">Nombre del Articulo:</label>
-                        <input type="text" class="form-control" id="article_name" name="article_name" placeholder="Nuevo Articulo" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="category_name" class="col-form-label">Categoria:</label>
-                        <select class="form-select" aria-label="Category select" id="category_name" name="category_name" required> 
-                            <option selected disabled>Ninguna</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="provider_name" class="col-form-label">Proveedor:</label>
-                        <select class="form-select" aria-label="Provider select" id="provider_name" name="provider_name" required>
-                            <option selected disabled>Ninguna</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="article_price" class="col-form-label">Precio:</label>
-                        <input type="number" step="any" class="form-control" id="article_price" name="article_price" placeholder="100.00" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="article_stock" class="col-form-label">Stock:</label>
-                        <input type="number" class="form-control" id="article_stock" name="article_stock" placeholder="100" required>
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuevo Articulo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">Registrar</button>
-                </div>
-            </form>
+                <form method='post' action='../controller/products/newProduct.php'>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="prod_name" class="col-form-label">Nombre del Articulo:</label>
+                            <input type="text" class="form-control" id="prod_name" name="prod_name" placeholder="Nuevo Articulo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="prod_idCat" class="col-form-label">Categoria:</label>
+                            <select class="form-select" aria-label="Category select" id="prod_idCat" name="prod_idCat" required> 
+                                <option selected disabled>Ninguna</option>
+                                <?php
+                                    echo showCategories();
+                                ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="prod_idProv" class="col-form-label">Proveedor:</label>
+                            <select class="form-select" aria-label="Provider select" id="prod_idProv" name="prod_idProv" required>
+                                <option selected disabled>Ninguna</option>
+                                <?php
+                                    echo showProviders();
+                                ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="prod_price" class="col-form-label">Precio:</label>
+                            <input type="number" step="any" class="form-control" id="prod_price" name="prod_price" placeholder="100.00" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="prod_stock" class="col-form-label">Stock:</label>
+                            <input type="number" class="form-control" id="prod_stock" name="prod_stock" placeholder="100" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Registrar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>    
@@ -209,48 +204,52 @@
     <div class="modal fade" id="editArticleModal" tabindex="-1" aria-labelledby="editArticleModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detalles del Articulo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form method='put'>
-            <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="article_name" class="col-form-label">Nombre del Articulo:</label>
-                        <input type="text" class="form-control" id="article_name" name="article_name" placeholder="Nuevo Articulo" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="category_name" class="col-form-label">Categoria:</label>
-                        <select class="form-select" aria-label="Category select" id="category_name" name="category_name" required> 
-                            <option selected disabled>Ninguna</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="provider_name" class="col-form-label">Proveedor:</label>
-                        <select class="form-select" aria-label="Provider select" id="provider_name" name="provider_name" required>
-                            <option selected disabled>Ninguna</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="article_price" class="col-form-label">Precio:</label>
-                        <input type="number" step="any" class="form-control" id="article_price" name="article_price" placeholder="100.00" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="article_stock" class="col-form-label">Stock:</label>
-                        <input type="number" class="form-control" id="article_stock" name="article_stock" placeholder="100" required>
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detalles del Articulo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                </div>
-            </form>
+                <form method='post' action="../controller/products/updateProduct.php">
+                    <div class="modal-body">                        
+                        <div class="mb-3 idInput">        
+                            <label for="prod_idE" class="col-form-label">ID:</label>
+                            <input type="text" class="form-control" id="prod_idE" name="prod_idE" readonly>
+                        </div>
+                        <div class="mb-3 nameInput">
+                            <label for="prod_nameE" class="col-form-label">Nombre del Articulo:</label>
+                            <input type="text" class="form-control" id="prod_nameE" name="prod_nameE" placeholder="Nuevo Articulo" required>
+                        </div>
+                        <div class="mb-3 catInput">
+                            <label for="prod_idCatE" class="col-form-label">Categoria:</label>
+                            <select class="form-select" aria-label="Category select" id="prod_idCatE" name="prod_idCatE" required> 
+                                <option selected disabled>Ninguna</option>
+                                <?php
+                                    echo showCategories();
+                                ?>
+                            </select>
+                        </div>
+                        <div class="mb-3 provInput">
+                            <label for="prod_idProvE" class="col-form-label">Proveedor:</label>
+                            <select class="form-select" aria-label="Provider select" id="prod_idProvE" name="prod_idProvE" required>
+                                <option selected disabled>Ninguna</option>
+                                <?php
+                                    echo showProviders();
+                                ?>
+                            </select>
+                        </div>
+                        <div class="mb-3 priceInput">
+                            <label for="prod_priceE" class="col-form-label">Precio:</label>
+                            <input type="number" step=".01" class="form-control" id="prod_priceE" name="prod_priceE" placeholder="100.00" required>
+                        </div>
+                        <div class="mb-3 stockInput">
+                            <label for="prod_stockE" class="col-form-label">Stock:</label>
+                            <input type="number" class="form-control" id="prod_stockE" name="prod_stockE" placeholder="100" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>    
@@ -260,25 +259,27 @@
     <div class="modal fade" id="delArticleModal" tabindex="-1" aria-labelledby="delArticleModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar el articulo?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Si</button>
-            </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar el articulo?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method='post' action="../controller/products/deleteProduct.php">
+                    <div class="modal-body">
+                        <div class="mb-3 idDelInput">        
+                            <label for="prod_idD" class="col-form-label">ID del producto por eliminar:</label>
+                            <input type="text" class="form-control" id="prod_idD" name="prod_idD" readonly>
+                        </div>
+                        <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Si</button>
+                    </div>                
+                </form>
             </div>
         </div>
     </div>
     <!-- Delete Article Modal -->
-
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     
 </body>
 </html>

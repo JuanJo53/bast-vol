@@ -1,11 +1,9 @@
 <?php
 include_once 'DataBase.php';
 	class Client extends DB{
-		var $sql2;
 		public function getAllClients(){
 			$sql = "SELECT * FROM cliente";
 			$result = $this->connect()->query($sql);
-			$numrows = $result->num_rows;
 			if($result->num_rows>0){
 				return $result;
 			}else{

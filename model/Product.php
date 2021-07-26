@@ -1,47 +1,54 @@
 <?php
 include_once 'DataBase.php';
 	class Product extends DB{
-		var $sql2;
 		public function getAllProducts(){
-			$sql = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass'";
+			$sql = "SELECT a.ART_ID, a.ART_NOMBRE, c.CAT_NOMBRE, b.PRO_NOMBRE, a.ART_PRECIO, a.ART_STOCK 
+					FROM articulo a, proveedor b, categoria c
+					WHERE a.ID_CATEGORIA=c.CAT_ID AND a.ID_PROVEEDOR=b.PRO_ID
+					ORDER BY a.ART_ID ASC";
 			$result = $this->connect()->query($sql);
-			$numrows = $result->num_rows;
-			if($numrows == 1){
-				return true;
+			if($result->num_rows>0){
+				return $result;
 			}else{
 				return false;
 			}
 		}
 		public function getProductById($id){
-			$sql = "SELECT identificador FROM user where nombre = '$user' and contraseña = '$pass'";
+			$sql = "SELECT a.ART_ID, a.ART_NOMBRE, c.CAT_ID,c.CAT_NOMBRE,b.PRO_ID, b.PRO_NOMBRE, a.ART_PRECIO, a.ART_STOCK 
+					FROM articulo a, proveedor b, categoria c 
+					WHERE a.ID_CATEGORIA=c.CAT_ID AND a.ID_PROVEEDOR=b.PRO_ID AND a.ART_ID='$id'";
 			$result = $this->connect()->query($sql);
-			$row2 = $result->fetch_assoc();
-            $valor=$row2['identificador'];
-            return $valor;
+			if($result->num_rows>0){
+				return $result;
+			}else{
+				return false;
+			}
 		}
-		public function updateProduct($id){
-			$sql2 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'ACA'";
-			$result2 = $this->connect()->query($sql2);
-			//$numrows2 = $result2->num_rows;
-			$row2 = $result2->fetch_assoc();
-			$name2=$row2['iduser'];
-			return $name2;
+		public function updateProduct($id,$name,$idCat,$idProv,$price,$stock){
+			$sql = "UPDATE articulo 
+					SET ART_NOMBRE='$name',ID_CATEGORIA='$idCat',ID_PROVEEDOR='$idProv',ART_PRECIO='$price',ART_STOCK='$stock'
+					WHERE ART_ID='$id'";
+			$result = $this->connect();
+			if(mysqli_query($result, $sql)){
+				return 'Exito!';
+			}else{
+				return "Error: " . $sql . "<br>" . mysqli_error($result);
+			}
 		}
 		public function deleteProduct($id){
-			$sql3 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'MOD'";
-			$result3 = $this->connect()->query($sql3);
-			//$numrows3 = $result3->num_rows;
-			$row3 = $result3->fetch_assoc();
-			$name3=$row3['iduser'];
-			return $name3;
+			$sql = "DELETE FROM articulo WHERE ART_ID = '$id'";
+			$result = $this->connect()->query($sql);
+			return $result;
 		}
-		public function newProduct($user,$pass){
-			$sql5 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'ADM'";
-			$result5 = $this->connect()->query($sql5);
-			//$numrows5 = $result5->num_rows;
-			$row5 = $result5->fetch_assoc();
-			$name5=$row5['iduser'];
-			return $name5;
+		public function newProduct($name,$idCat,$idProv,$price,$stock){
+			$sql = "INSERT INTO articulo(ART_NOMBRE, ID_CATEGORIA, ID_PROVEEDOR, ART_PRECIO, ART_STOCK) 
+					VALUES ('$name','$idCat','$idProv','$price','$stock')";
+			$result = $this->connect();
+			if(mysqli_query($result, $sql)){
+				return 'Exito!';
+			}else{
+				return "Error: " . $sql . "<br>" . mysqli_error($result);
+			}
 		}
 	}
 

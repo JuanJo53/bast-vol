@@ -177,7 +177,7 @@
                 <form method='post' action="../controller/categories/updateCategory.php">
                     <div class="modal-body">
                         <div class="mb-3 idInput">        
-                            <label for="cat_idEdit" class="col-form-label">ID de la categoria por eliminar:</label>
+                            <label for="cat_idEdit" class="col-form-label">ID:</label>
                             <input type="text" class="form-control" id="cat_idEdit" name="cat_idEdit" readonly>
                         </div>
                         <div class="mb-3 nameInput">

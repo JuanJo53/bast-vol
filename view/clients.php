@@ -194,7 +194,7 @@
                 <form method='post' action="../controller/clients/updateClient.php">
                     <div class="modal-body">
                         <div class="mb-3 idInput">        
-                            <label for="cli_idE" class="col-form-label">ID de la categoria por eliminar:</label>
+                            <label for="cli_idE" class="col-form-label">ID:</label>
                             <input type="text" class="form-control" id="cli_idE" name="cli_idE" readonly>
                         </div>
                         <div class="mb-3 nameInput">
