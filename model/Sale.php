@@ -1,5 +1,5 @@
 <?php
-include_once 'db.php';
+include_once 'DataBase.php';
 	class Sale extends DB{
 		var $sql2;
 		public function getAllSales(){

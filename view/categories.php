@@ -8,6 +8,27 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/main.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+    <script>
+        $(document).on("click", ".openEditModal", function () {
+            var id = $(this).data('id');
+            $(".idInput #cat_idEdit").val( id );
+            $.getJSON('../controller/categories/getCategoryDetails.php',{'cat_id':id} ,function( data ) {
+                console.log(data);
+                $(".nameInput #cat_nameEdit").val( data.CAT_NOMBRE );
+            });
+        });
+    </script>
+    <script>
+        $(document).on("click", ".openDeleteModal", function () {
+            var id = $(this).data('id');
+            $(".idDelInput #cat_idD").val( id );
+        });
+    </script>
+
 </head>
 <body data-spy="scroll" data-target="#navbar" data-offset="56">
 	<!--Header-->
@@ -110,33 +131,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>
-                                <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editCatModal" role="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                                    </svg>
-                                </button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delCatModal" role="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                        </tr>
+                        <?php
+                            include_once '../controller/categories/getCategories.php';
+                            echo showCategories();
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -147,22 +145,22 @@
     <div class="modal fade" id="newCatModal" tabindex="-1" aria-labelledby="newCatModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nueva Categoria</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form method='post'>
-            <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="cat_name" class="col-form-label">Nombre de la Categoria:</label>
-                        <input type="text" class="form-control" id="cat_name" name="cat_name" placeholder="Nombre" required>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nueva Categoria</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method='post' action="../controller/categories/newCategory.php">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="cat_name" class="col-form-label">Nombre de la Categoria:</label>
+                            <input type="text" class="form-control" id="cat_name" name="cat_name" placeholder="Nombre" required>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">Registrar</button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Registrar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>    
@@ -172,22 +170,26 @@
     <div class="modal fade" id="editCatModal" tabindex="-1" aria-labelledby="editCatModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detalles de la Categoria</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form method='post'>
-            <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="cat_name" class="col-form-label">Nombre de la Categoria:</label>
-                        <input type="text" class="form-control" id="cat_name" name="cat_name" placeholder="Nombre" required>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detalles de la Categoria</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method='post' action="../controller/categories/updateCategory.php">
+                    <div class="modal-body">
+                        <div class="mb-3 idInput">        
+                            <label for="cat_idEdit" class="col-form-label">ID de la categoria por eliminar:</label>
+                            <input type="text" class="form-control" id="cat_idEdit" name="cat_idEdit" readonly>
+                        </div>
+                        <div class="mb-3 nameInput">
+                            <label for="cat_nameEdit" class="col-form-label">Nombre de la Categoria:</label>
+                            <input type="text" class="form-control" id="cat_nameEdit" name="cat_nameEdit" placeholder="Nombre" required>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">Registrar</button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Registrar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>    
@@ -197,25 +199,27 @@
     <div class="modal fade" id="delCatModal" tabindex="-1" aria-labelledby="delCatModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar esta categoria?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Si</button>
-            </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar este proveedor?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method='post' action="../controller/categories/deleteCategory.php">                
+                    <div class="modal-body">
+                        <div class="mb-3 idDelInput">        
+                            <label for="cat_idD" class="col-form-label">ID de la categoria por eliminar:</label>
+                            <input type="text" class="form-control" id="cat_idD" name="cat_idD" readonly>
+                        </div>
+                        <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Si</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     <!-- Delete Category Modal -->
-    
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 </body>
 </html>

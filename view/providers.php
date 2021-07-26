@@ -16,7 +16,7 @@
         $(document).on("click", ".openEditModal", function () {
             var id = $(this).data('id');
             $(".idInput #prov_idEdit").val( id );
-            $.getJSON('../controller/providers/getProviderDetails.php',{'prov_idDel':id} ,function( data ) {
+            $.getJSON('../controller/providers/getProviderDetails.php',{'prov_id':id} ,function( data ) {
                 console.log(data);
                 $(".nameInput #prov_nameEdit").val( data.PRO_NOMBRE );
                 $(".emailInput #prov_emailEdit").val( data.PRO_CORREO );
@@ -197,7 +197,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Detalles del Proveedor</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method='post'  action="../controller/providers/updateProvider.php">
+            <form method='post' action="../controller/providers/updateProvider.php">
             <div class="modal-body">                   
                     <div class="mb-3 idInput">        
                         <label for="prov_idEdit" class="col-form-label">ID:</label>

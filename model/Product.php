@@ -1,5 +1,5 @@
 <?php
-include_once 'db.php';
+include_once 'DataBase.php';
 	class Product extends DB{
 		var $sql2;
 		public function getAllProducts(){

@@ -2,7 +2,7 @@
     include '../../model/Provider.php';
     
     function showProviderDetails(){
-        $provId=$_GET['prov_idDel'];
+        $provId=$_GET['prov_id'];
         $provider = new Provider;
         $provData = $provider->getProviderById($provId);
         $response=$provData->fetch_assoc();

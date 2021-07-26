@@ -1,5 +1,5 @@
 <?php
-include_once 'db.php';
+include_once 'DataBase.php';
 	class Client extends DB{
 		var $sql2;
 		public function getAllClients(){
