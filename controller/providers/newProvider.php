@@ -8,7 +8,7 @@
     $country=$_POST['prov_country'];
 
     $provider = new Provider;
-    $result = $provider->newUser($name,$email,$phone,$city,$country);
+    $result = $provider->newProvider($name,$email,$phone,$city,$country);
     echo $result;
     header('Location: ../../view/providers.php');
 

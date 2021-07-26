@@ -21,7 +21,7 @@ include_once 'DataBase.php';
 		}
 
 		public function updateProvider($id,$name,$email,$phone,$city,$country){
-			$sql = "UPDATE proveedor SET PRO_NOMBRE='$name',PRO_CORREO='$email',PRO_TELEFONO='$phone',PRO_CIUDAD='$city',PRO_COUNTRY='$country'
+			$sql = "UPDATE proveedor SET PRO_NOMBRE='$name',PRO_CORREO='$email',PRO_TELEFONO='$phone',PRO_CIUDAD='$city',PRO_PAIS='$country'
 					WHERE PRO_ID='$id'";
 			$result = $this->connect();
 			if(mysqli_query($result, $sql)){
@@ -36,7 +36,7 @@ include_once 'DataBase.php';
 			return $result;
 		}
 		public function newProvider($name,$email,$phone,$city,$country){
-			$sql = "INSERT INTO proveedor(PRO_NOMBRE, PRO_CORREO, PRO_TELEFONO, PRO_CIUDAD, PRO_COUNTRY) 
+			$sql = "INSERT INTO proveedor(PRO_NOMBRE, PRO_CORREO, PRO_TELEFONO, PRO_CIUDAD, PRO_PAIS) 
 			VALUES ('$name','$email','$phone','$city','$country')";
 			$result = $this->connect();
 			if(mysqli_query($result, $sql)){

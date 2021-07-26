@@ -1,22 +1,19 @@
 <?php
-    include '../../model/User.php';
+    include '../../model/Provider.php';
 
-    function updateUserData(){   
-        $userId=$_POST['usr_idE'];
-        $name=$_POST['usr_namee'];
-        $lastname=$_POST['usr_last_namese'];
-        $phone=$_POST['usr_phonee'];
-        $email=$_POST['usr_emaile'];
-        $username=$_POST['usr_usernamee'];
-        $password=$_POST['usr_passworde'];
-        $type=$_POST['usr_typee'];  
+    function updateProviderData(){   
+        $provid=$_POST['prov_idEdit'];
+        $name=$_POST['prov_nameEdit'];
+        $email=$_POST['prov_emailEdit'];
+        $phone=$_POST['prov_phoneEdit'];
+        $city=$_POST['prov_cityEdit'];
+        $country=$_POST['prov_countryEdit'];
     
-        $user = new User;
-        $response = $user->updateUser($userId,$name,$lastname,$phone,$email,$username,$password,$type);
-        return $response;
+        $provider = new Provider;
+        $response = $provider->updateProvider($provid,$name,$email,$phone,$city,$country);        return $response;
     }
-    echo updateUserData();
+    echo updateProviderData();
     
-    header('Location: ../../view/users.php');
+    header('Location: ../../view/providers.php');
 
 ?>

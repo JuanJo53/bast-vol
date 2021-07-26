@@ -1,13 +1,13 @@
 <?php
-    include '../../model/User.php';
+    include '../../model/Provider.php';
     
-    function showUserDetails(){
-        $userId=$_GET['usr_idEdit'];
-        $user = new User;
-        $userData = $user->getUserById($userId);
-        $response=$userData->fetch_assoc();
+    function showProviderDetails(){
+        $provId=$_GET['prov_idDel'];
+        $provider = new Provider;
+        $provData = $provider->getProviderById($provId);
+        $response=$provData->fetch_assoc();
         return json_encode($response);
     }
-    echo showUserDetails();
+    echo showProviderDetails();
 
 ?>

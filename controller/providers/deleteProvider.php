@@ -1,14 +1,14 @@
 <?php
-    include '../../model/User.php';
+    include '../../model/Provider.php';
     
-    function removeUser(){
-        $userId=$_POST['usr_idD'];
-        $user = new User;
-        $response = $user->deleteUser($userId);
+    function removeProvider(){
+        $userId=$_POST['prov_idDel'];
+        $provider = new Provider;
+        $response = $provider->deleteProvider($userId);
         return $response;
     }
-    echo removeUser();
+    echo removeProvider();
     
-    header('Location: ../../view/users.php');
+    header('Location: ../../view/providers.php');
 
 ?>

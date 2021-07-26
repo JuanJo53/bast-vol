@@ -10,10 +10,10 @@
                 <tr>
                     <th scope='row'>".$row['PRO_ID']."</th>
                     <td>".$row['PRO_NOMBRE']."</td>
-                    <td>".$row['USR_CORREO']."</td>
+                    <td>".$row['PRO_CORREO']."</td>
                     <td>".$row['PRO_TELEFONO']."</td>
                     <td>".$row['PRO_CIUDAD']."</td>
-                    <td>".$row['PRO_COUNTRY']."</td>
+                    <td>".$row['PRO_PAIS']."</td>
                     <td>
                         <button class='btn btn-info openEditModal' data-bs-toggle='modal' data-bs-target='#editProvModal' role='button' type='submit' id='prov_idEdit' name='prov_idEdit' data-id='".$row['PRO_ID']."'>
                             <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fil='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
@@ -32,7 +32,7 @@
                 </tr>";
             }
         }else{
-            $providersHtml.="<p style='color:red';>¡No hay nada que mostrar!</p>";
+            $providersHtml.="<tr><th style='color:red';>¡No hay nada que mostrar!</th></tr>";
         }
         return $providersHtml;
     }

@@ -8,6 +8,30 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/main.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).on("click", ".openEditModal", function () {
+            var id = $(this).data('id');
+            $(".idInput #prov_idEdit").val( id );
+            $.getJSON('../controller/providers/getProviderDetails.php',{'prov_idDel':id} ,function( data ) {
+                console.log(data);
+                $(".nameInput #prov_nameEdit").val( data.PRO_NOMBRE );
+                $(".emailInput #prov_emailEdit").val( data.PRO_CORREO );
+                $(".phoneInput #prov_phoneEdit").val( data.PRO_TELEFONO );
+                $(".cityInput #prov_cityEdit").val( data.PRO_CIUDAD );
+                $(".countryInput #prov_countryEdit").val( data.PRO_PAIS );
+            });
+        });
+    </script>
+    <script>
+        $(document).on("click", ".openDeleteModal", function () {
+            var id = $(this).data('id');
+            $(".idDelInput #prov_idDel").val( id );
+        });
+    </script>
 </head>
 <body data-spy="scroll" data-target="#navbar" data-offset="56">
 	<!--Header-->
@@ -128,38 +152,38 @@
     <div class="modal fade" id="newProvModal" tabindex="-1" aria-labelledby="newProvModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nuevo Proveedor</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form method='post'>
-            <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="prov_name" class="col-form-label">Nombre del Proveedor:</label>
-                        <input type="text" class="form-control" id="prov_name" name="prov_name" placeholder="Nombre" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="prov_email" class="col-form-label">Correo Electronico:</label>
-                        <input type="text" class="form-control" id="prov_email" name="prov_email" placeholder="prov@prov.com" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="prov_phone" class="col-form-label">Telefono:</label>
-                        <input type="number" class="form-control" id="prov_phone" name="prov_phone" placeholder="222222222" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="prov_city" class="col-form-label">Ciudad:</label>
-                        <input type="text" class="form-control" id="prov_city" name="prov_city" placeholder="Ciudad Maravilla" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="prov_country" class="col-form-label">Pais:</label>
-                        <input type="text" class="form-control" id="prov_country" name="prov_country" placeholder="Pais Algo" required>
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuevo Proveedor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">Registrar</button>
-                </div>
-            </form>
+                <form method='post' action='../controller/providers/newProvider.php'>
+                    <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="prov_name" class="col-form-label">Nombre del Proveedor:</label>
+                                <input type="text" class="form-control" id="prov_name" name="prov_name" placeholder="Nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="prov_email" class="col-form-label">Correo Electronico:</label>
+                                <input type="email" class="form-control" id="prov_email" name="prov_email" placeholder="prov@prov.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="prov_phone" class="col-form-label">Telefono:</label>
+                                <input type="number" class="form-control" id="prov_phone" name="prov_phone" placeholder="222222222" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="prov_city" class="col-form-label">Ciudad:</label>
+                                <input type="text" class="form-control" id="prov_city" name="prov_city" placeholder="Ciudad Maravilla" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="prov_country" class="col-form-label">Pais:</label>
+                                <input type="text" class="form-control" id="prov_country" name="prov_country" placeholder="Pais Algo" required>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Registrar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>    
@@ -173,27 +197,31 @@
                 <h5 class="modal-title" id="exampleModalLabel">Detalles del Proveedor</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method='post'>
-            <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="prov_name" class="col-form-label">Nombre del Proveedor:</label>
-                        <input type="text" class="form-control" id="prov_name" name="prov_name" placeholder="Nombre" required>
+            <form method='post'  action="../controller/providers/updateProvider.php">
+            <div class="modal-body">                   
+                    <div class="mb-3 idInput">        
+                        <label for="prov_idEdit" class="col-form-label">ID:</label>
+                        <input type="text" class="form-control" id="prov_idEdit" name="prov_idEdit" readonly>
                     </div>
-                    <div class="mb-3">
-                        <label for="prov_email" class="col-form-label">Correo Electronico:</label>
-                        <input type="text" class="form-control" id="prov_email" name="prov_email" placeholder="prov@prov.com" required>
+                    <div class="mb-3 nameInput">
+                        <label for="prov_nameEdit" class="col-form-label">Nombre del Proveedor:</label>
+                        <input type="text" class="form-control" id="prov_nameEdit" name="prov_nameEdit" placeholder="Nombre" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="prov_phone" class="col-form-label">Telefono:</label>
-                        <input type="number" class="form-control" id="prov_phone" name="prov_phone" placeholder="222222222" required>
+                    <div class="mb-3 emailInput">
+                        <label for="prov_emailEdit" class="col-form-label">Correo Electronico:</label>
+                        <input type="email" class="form-control" id="prov_emailEdit" name="prov_emailEdit" placeholder="prov@prov.com" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="prov_city" class="col-form-label">Ciudad:</label>
-                        <input type="text" class="form-control" id="prov_city" name="prov_city" placeholder="Ciudad Maravilla" required>
+                    <div class="mb-3 phoneInput">
+                        <label for="prov_phoneEdit" class="col-form-label">Telefono:</label>
+                        <input type="number" class="form-control" id="prov_phoneEdit" name="prov_phoneEdit" placeholder="222222222" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="prov_country" class="col-form-label">Pais:</label>
-                        <input type="text" class="form-control" id="prov_country" name="prov_country" placeholder="Pais Algo" required>
+                    <div class="mb-3 cityInput">
+                        <label for="prov_cityEdit" class="col-form-label">Ciudad:</label>
+                        <input type="text" class="form-control" id="prov_cityEdit" name="prov_cityEdit" placeholder="Ciudad Maravilla" required>
+                    </div>
+                    <div class="mb-3 countryInput">
+                        <label for="prov_countryEdit" class="col-form-label">Pais:</label>
+                        <input type="text" class="form-control" id="prov_countryEdit" name="prov_countryEdit" placeholder="Pais Algo" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -210,25 +238,27 @@
     <div class="modal fade" id="delProvModal" tabindex="-1" aria-labelledby="delProvModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar este proveedor?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Si</button>
-            </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar este proveedor?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method='post' action="../controller/providers/deleteProvider.php">                
+                    <div class="modal-body">
+                        <div class="mb-3 idDelInput">        
+                            <label for="prov_idDel" class="col-form-label">ID de proveedor por eliminar:</label>
+                            <input type="text" class="form-control" id="prov_idDel" name="prov_idDel" readonly>
+                        </div>
+                        <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Si</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     <!-- Delete Provider Modal -->
     
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
 </body>
 </html>

@@ -176,7 +176,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="usr_email" class="col-form-label">Correo del Usuario:</label>
-                        <input type="text" class="form-control" id="usr_email" name="usr_email" placeholder="cliente@cliente.com" required>
+                        <input type="email" class="form-control" id="usr_email" name="usr_email" placeholder="cliente@cliente.com" required>
                     </div>
                     <div class="mb-3">
                         <label for="usr_username" class="col-form-label">Nombre de Usuario:</label>
@@ -233,7 +233,7 @@
                     </div>
                     <div class="mb-3 emailInput">
                         <label for="usr_emaile" class="col-form-label">Correo del Usuario:</label>
-                        <input type="text" class="form-control" id="usr_emaile" name="usr_emaile" placeholder="cliente@cliente.com" required>
+                        <input type="email" class="form-control" id="usr_emaile" name="usr_emaile" placeholder="cliente@cliente.com" required>
                     </div>
                     <div class="mb-3 usernameInput">
                         <label for="usr_usernamee" class="col-form-label">Nombre de Usuario:</label>
