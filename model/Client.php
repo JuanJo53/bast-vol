@@ -3,45 +3,48 @@ include_once 'DataBase.php';
 	class Client extends DB{
 		var $sql2;
 		public function getAllClients(){
-			$sql = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass'";
+			$sql = "SELECT * FROM cliente";
 			$result = $this->connect()->query($sql);
 			$numrows = $result->num_rows;
-			if($numrows == 1){
-				return true;
+			if($result->num_rows>0){
+				return $result;
 			}else{
 				return false;
 			}
 		}
 		public function getClientById($id){
-			$sql = "SELECT identificador FROM user where nombre = '$user' and contraseña = '$pass'";
+			$sql = "SELECT * FROM cliente WHERE CLI_ID = '$id'";
 			$result = $this->connect()->query($sql);
-			$row2 = $result->fetch_assoc();
-            $valor=$row2['identificador'];
-            return $valor;
+			if($result->num_rows>0){
+				return $result;
+			}else{
+				return false;
+			}
 		}
-		public function updateClient($id){
-			$sql2 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'ACA'";
-			$result2 = $this->connect()->query($sql2);
-			//$numrows2 = $result2->num_rows;
-			$row2 = $result2->fetch_assoc();
-			$name2=$row2['iduser'];
-			return $name2;
+		public function updateClient($id,$name,$nit,$phone,$email){
+			$sql = "UPDATE cliente SET CLI_NOMBRE='$name',CLI_NIT='$nit',CLI_TELEFONO='$phone',CLI_CORREO='$email'	
+					WHERE CLI_ID='$id'";
+			$result = $this->connect();
+			if(mysqli_query($result, $sql)){
+				return 'Exito!';
+			}else{
+				return "Error: " . $sql . "<br>" . mysqli_error($result);
+			}
 		}
 		public function deleteClient($id){
-			$sql3 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'MOD'";
-			$result3 = $this->connect()->query($sql3);
-			//$numrows3 = $result3->num_rows;
-			$row3 = $result3->fetch_assoc();
-			$name3=$row3['iduser'];
-			return $name3;
+			$sql = "DELETE FROM cliente WHERE CLI_ID = '$id'";
+			$result = $this->connect()->query($sql);
+			return $result;
 		}
-		public function newClient($user,$pass){
-			$sql5 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'ADM'";
-			$result5 = $this->connect()->query($sql5);
-			//$numrows5 = $result5->num_rows;
-			$row5 = $result5->fetch_assoc();
-			$name5=$row5['iduser'];
-			return $name5;
+		public function newClient($name,$nit,$phone,$email){
+			$sql = "INSERT INTO cliente(CLI_NOMBRE, CLI_NIT, CLI_TELEFONO, CLI_CORREO) 
+					VALUES ('$name','$nit','$phone','$email')";
+			$result = $this->connect();
+			if(mysqli_query($result, $sql)){
+				return 'Exito!';
+			}else{
+				return "Error: " . $sql . "<br>" . mysqli_error($result);
+			}
 		}
 	}
 
