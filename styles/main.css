@@ -31,3 +31,6 @@ body {
 .login-error {
 	color: red;
 }
+.message_error {
+	color: red;
+}

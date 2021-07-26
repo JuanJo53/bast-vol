@@ -1,47 +1,49 @@
 <?php
-include_once 'db.php';
+include_once 'DataBase.php';
 	class Provider extends DB{
-		var $sql2;
 		public function getAllProviders(){
-			$sql = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass'";
+			$sql = "SELECT * FROM proveedor";
 			$result = $this->connect()->query($sql);
-			$numrows = $result->num_rows;
-			if($numrows == 1){
-				return true;
+			if($result->num_rows>0){
+				return $result;
 			}else{
 				return false;
 			}
 		}
 		public function getProviderById($id){
-			$sql = "SELECT identificador FROM user where nombre = '$user' and contraseña = '$pass'";
+			$sql = "SELECT * FROM proveedor WHERE PRO_ID = '$id'";
 			$result = $this->connect()->query($sql);
-			$row2 = $result->fetch_assoc();
-            $valor=$row2['identificador'];
-            return $valor;
+			if($result->num_rows>0){
+				return $result;
+			}else{
+				return false;
+			}
 		}
-		public function updateProvider($id){
-			$sql2 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'ACA'";
-			$result2 = $this->connect()->query($sql2);
-			//$numrows2 = $result2->num_rows;
-			$row2 = $result2->fetch_assoc();
-			$name2=$row2['iduser'];
-			return $name2;
+
+		public function updateProvider($id,$name,$email,$phone,$city,$country){
+			$sql = "UPDATE proveedor SET PRO_NOMBRE='$name',PRO_CORREO='$email',PRO_TELEFONO='$phone',PRO_CIUDAD='$city',PRO_COUNTRY='$country'
+					WHERE PRO_ID='$id'";
+			$result = $this->connect();
+			if(mysqli_query($result, $sql)){
+				return 'Exito!';
+			}else{
+				return "Error: " . $sql . "<br>" . mysqli_error($result);
+			}
 		}
 		public function deleteProvider($id){
-			$sql3 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'MOD'";
-			$result3 = $this->connect()->query($sql3);
-			//$numrows3 = $result3->num_rows;
-			$row3 = $result3->fetch_assoc();
-			$name3=$row3['iduser'];
-			return $name3;
+			$sql = "DELETE FROM proveedor WHERE PRO_ID = '$id'";
+			$result = $this->connect()->query($sql);
+			return $result;
 		}
-		public function newProvider($user,$pass){
-			$sql5 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'ADM'";
-			$result5 = $this->connect()->query($sql5);
-			//$numrows5 = $result5->num_rows;
-			$row5 = $result5->fetch_assoc();
-			$name5=$row5['iduser'];
-			return $name5;
+		public function newProvider($name,$email,$phone,$city,$country){
+			$sql = "INSERT INTO proveedor(PRO_NOMBRE, PRO_CORREO, PRO_TELEFONO, PRO_CIUDAD, PRO_COUNTRY) 
+			VALUES ('$name','$email','$phone','$city','$country')";
+			$result = $this->connect();
+			if(mysqli_query($result, $sql)){
+				return 'Exito!';
+			}else{
+				return "Error: " . $sql . "<br>" . mysqli_error($result);
+			}
 		}
 	}
 
