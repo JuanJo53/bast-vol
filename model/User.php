@@ -16,7 +16,7 @@
 			}
 		}
 		public function getUserById($id){
-			$sql = "SELECT * FROM usuario where USR_ID = '$id'";
+			$sql = "SELECT * FROM usuario WHERE USR_ID = '$id'";
 			$result = $this->connect()->query($sql);
 			if($result->num_rows>0){
 				return $result;

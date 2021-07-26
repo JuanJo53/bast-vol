@@ -1,10 +1,6 @@
 <?php
     include '../../model/User.php';
-    function showUserDetails(){        
-        $userId=$_POST['usr_idEdit'];
-        $userData = $user->getUserById($userId);
-        return $userData;
-    }
+
     function updateUserData(){   
         $userId=$_POST['usr_idE'];
         $name=$_POST['usr_namee'];

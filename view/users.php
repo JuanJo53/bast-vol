@@ -16,7 +16,17 @@
         $(document).on("click", ".openEditModal", function () {
             var id = $(this).data('id');
             $(".idInput #usr_idE").val( id );
-            $.post('../controller/users/updateUser.php', {"usr_idEdit": id});
+            $.getJSON('../controller/users/getUserDetails.php',{'usr_idEdit':id} ,function( data ) {
+                console.log(data);
+                $(".nameInput #usr_namee").val( data.USR_NOMBRES );
+                $(".lastnameInput #usr_last_namese").val( data.USR_APELLIDOS );
+                $(".phoneInput #usr_phonee").val( data.USR_TELEFONO );
+                $(".emailInput #usr_emaile").val( data.USR_CORREO );
+                $(".usernameInput #usr_usernamee").val( data.USR_USER );
+                $(".usernameInput #usr_usernamee").val( data.USR_USER );
+                $(".typeInput #usr_typee").val( data.USR_TIPO );
+                $(".passInput #usr_passworde").val( data.USR_PASSWORD );
+            });
         });
     </script>
 </head>
@@ -203,31 +213,31 @@
                         <label for="usr_idE" class="col-form-label">ID:</label>
                         <input type="text" class="form-control" id="usr_idE" name="usr_idE" readonly>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 nameInput">
                         <label for="usr_namee" class="col-form-label">Nombres:</label>
                         <input type="text" class="form-control" id="usr_namee" name="usr_namee" placeholder="Nuevo Usuario" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 lastnameInput">
                         <label for="usr_last_namese" class="col-form-label">Apellidos del Usuario:</label>
                         <input type="text" class="form-control" id="usr_last_namese" name="usr_last_namese" placeholder="Perez" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 phoneInput">
                         <label for="usr_phonee" class="col-form-label">Telefono del Usuario:</label>
                         <input type="number" class="form-control" id="usr_phonee" name="usr_phonee" placeholder="22222222" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 emailInput">
                         <label for="usr_emaile" class="col-form-label">Correo del Usuario:</label>
                         <input type="text" class="form-control" id="usr_emaile" name="usr_emaile" placeholder="cliente@cliente.com" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 usernameInput">
                         <label for="usr_usernamee" class="col-form-label">Nombre de Usuario:</label>
                         <input type="text" class="form-control" id="usr_usernamee" name="usr_usernamee" placeholder="algunusuario" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 passInput">
                         <label for="usr_passworde" class="col-form-label">Contraseña:</label>
                         <input type="password" class="form-control" id="usr_passworde" name="usr_passworde" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 typeInput">
                         <label for="usr_typee" class="col-form-label">Tipo:</label>
                         <select class="form-select" aria-label="Category select" id="usr_typee" name="usr_typee" required> 
                             <option selected disabled>Ninguna</option>
