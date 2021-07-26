@@ -36,12 +36,9 @@
 			}
 		}
 		public function deleteUser($id){
-			$sql4 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'PRO'";
-			$result4 = $this->connect()->query($sql4);
-			//$numrows4 = $result4->num_rows;
-			$row4 = $result4->fetch_assoc();
-			$name4=$row4['iduser'];
-			return $name4;
+			$sql = "DELETE FROM usuario WHERE USR_ID = '$id'";
+			$result = $this->connect()->query($sql);
+			return $result;
 		}
 		public function newUser($name,$lastname,$phone,$email,$username,$password,$type){
 			$sql = "INSERT INTO usuario(USR_NOMBRES, USR_APELLIDOS, USR_TELEFONO, USR_CORREO, USR_USER, USR_PASSWORD, USR_TIPO) 

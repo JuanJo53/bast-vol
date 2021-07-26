@@ -29,6 +29,12 @@
             });
         });
     </script>
+    <script>
+        $(document).on("click", ".openDeleteModal", function () {
+            var id = $(this).data('id');
+            $(".idDelInput #usr_idD").val( id );
+        });
+    </script>
 </head>
 <body data-spy="scroll" data-target="#navbar" data-offset="56">
 	<!--Header-->
@@ -260,22 +266,27 @@
     <div class="modal fade" id="delUserModal" tabindex="-1" aria-labelledby="delUserModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar al usuario?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Si</button>
-            </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar al usuario?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method='post' action="../controller/users/deleteUser.php">
+                    <div class="modal-body">
+                        <div class="mb-3 idDelInput">                        
+                                <label for="usr_idD" class="col-form-label">ID del usuario por eliminar:</label>
+                                <input type="text" class="form-control" id="usr_idD" name="usr_idD" readonly>
+                        </div>
+                        <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Si</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     <!-- Delete User Modal -->
-
 
 </body>
 </html>
