@@ -7,6 +7,7 @@
     <title>BAST-VOL | Ventas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/main.css" />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>    
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -23,10 +24,17 @@
             });
         });
     </script>
+    
     <script>
-        $(document).on("click", ".openDeleteModal", function () {
-            var id = $(this).data('id');
-            $(".idDelInput #sale_idDel").val( id );
+        $(document).on("click", ".addProductBtn", function () {
+            var productsHtml;
+            $.ajax({ 
+                url: '../controller/sales/getProducts.php',
+                success: function (response) {
+                    productsHtml=response;
+                    $( ".productsList" ).append("<label for='saleProdIdE' class='col-form-label'>Articulo:</label><select class='form-select' aria-label='Products select' id='saleProdIdE' name='saleProdIdE' required><option selected disabled>Ninguna</option>"+productsHtml+"</select><div class='row'><div class='mb-3'><label for='saleQuant' class='col-form-label'>Cantidad:</label><input type='number' class='form-control' id='saleQuant' name='saleQuant' placeholder='100' required></div></div>");
+                }
+            });
         });
     </script>
 </head>
@@ -158,7 +166,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method='post' action='../controller/sales/newSale.php'>
-                    <div class="modal-body">
+                    <div class="modal-body newSaleBody">
                         <div class="mb-3">
                             <label for="saleCliId" class="col-form-label">NIT Cliente:</label>
                             <select class="form-select" aria-label="Clients select" id="saleCliId" name="saleCliId" required>
@@ -168,18 +176,31 @@
                                 ?>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="saleProdId" class="col-form-label">Articulo:</label>
-                            <select class="form-select" aria-label="Products select" id="saleProdId" name="saleProdId" required>
-                                <option selected disabled>Ninguna</option>
-                                <?php
-                                    echo showProducts();
-                                ?>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="saleQuant" class="col-form-label">Cantidad:</label>
-                            <input type="number" class="form-control" id="saleQuant" name="saleQuant" placeholder="100" required>
+                        <div class="mb-3 row">
+                            <div class="col">
+                                <label for="saleProdIdE" class="col-form-label">Articulos:</label>
+                            </div>
+                            <hr>
+                            <div class="row ps-5 pe-5">
+                                <div class="productsList" id="productsList">                                    
+                                    <label for="saleProdIdE" class="col-form-label">Articulo:</label>
+                                    <select class="form-select" aria-label="Products select" id="saleProdIdE" name="saleProdIdE" required>
+                                        <option selected disabled>Ninguna</option>
+                                        <?php
+                                            echo showProducts();
+                                        ?>
+                                    </select>
+                                    <div class="row">
+                                        <div class="mb-3">
+                                            <label for="saleQuant" class="col-form-label">Cantidad:</label>
+                                            <input type="number" class="form-control" id="saleQuant" name="saleQuant" placeholder="100" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-outline-dark addProductBtn" >Agregar Articulo</button>
+                                </div>                 
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -216,13 +237,15 @@
                             </select>
                         </div>
                         <div class="mb-3 saleProdIdInput">
-                            <label for="saleProdIdE" class="col-form-label">Articulo:</label>
-                            <select class="form-select" aria-label="Products select" id="saleProdIdE" name="saleProdIdE" required>
-                                <option selected disabled>Ninguna</option>
-                                <?php
-                                    echo showProducts();
-                                ?>
-                            </select>
+                            <label for="saleProdIdE" class="col-form-label">Articulos:</label>
+                            <div class="products" id="products">
+                                <select class="form-select" aria-label="Products select" id="saleProdIdE" name="saleProdIdE" required>
+                                    <option selected disabled>Ninguna</option>
+                                    <?php
+                                        echo showProducts();
+                                    ?>
+                                </select>
+                            </div>
                         </div>
                         <div class="mb-3 saleQuantInput">
                             <label for="saleQuantE" class="col-form-label">Cantidad:</label>

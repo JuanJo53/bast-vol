@@ -34,3 +34,10 @@ body {
 .message_error {
 	color: red;
 }
+.products {
+	margin: 50px;
+	padding: 5px;
+}
+.newSaleBody {
+	height: 100%;
+}
