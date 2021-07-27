@@ -1,47 +1,88 @@
 <?php
 include_once 'DataBase.php';
 	class Sale extends DB{
-		var $sql2;
 		public function getAllSales(){
-			$sql = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass'";
+			$sql = "SELECT v.VEN_ID, u.USR_NOMBRES, c.CLI_NOMBRE, a.ART_NOMBRE, dv.DV_CANTIDAD, v.VEN_TOTAL, v.VEN_FECHA
+					FROM venta v, detalleventa dv, usuario u, cliente c, articulo a
+					WHERE v.VEN_ID=dv.ID_VENTA 
+					AND v.ID_USUARIO=u.USR_ID 
+					AND v.ID_CLIENTE=c.CLI_ID 
+					AND dv.ID_ARTICULO=a.ART_ID
+					AND dv.ID_VENTA=v.VEN_ID
+					ORDER BY v.VEN_ID ASC";
 			$result = $this->connect()->query($sql);
-			$numrows = $result->num_rows;
-			if($numrows == 1){
-				return true;
+			if($result->num_rows>0){
+				return $result;
 			}else{
 				return false;
 			}
 		}
 		public function getSaleById($id){
-			$sql = "SELECT identificador FROM user where nombre = '$user' and contraseña = '$pass'";
+			$sql = "SELECT v.VEN_ID, u.USR_NOMBRES, c.CLI_NOMBRE, a.ART_NOMBRE, dv.DV_CANTIDAD, v.VEN_TOTAL, v.VEN_FECHA 
+					FROM venta v, detalleventa dv, usuario u, cliente c, articulo a
+					WHERE v.VEN_ID=dv.ID_VENTA 
+					AND v.ID_USUARIO=u.USR_ID 
+					AND v.ID_CLIENTE=c.CLI_ID 
+					AND v.ID_ARTICULO=a.ART_ID 
+					AND dv.ID_VENTA=v.VEN_ID 
+					AND v.VEN_ID='$id'";
 			$result = $this->connect()->query($sql);
-			$row2 = $result->fetch_assoc();
-            $valor=$row2['identificador'];
-            return $valor;
+			if($result->num_rows>0){
+				return $result;
+			}else{
+				return false;
+			}
 		}
-		public function updateSale($id){
-			$sql2 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'ACA'";
-			$result2 = $this->connect()->query($sql2);
-			//$numrows2 = $result2->num_rows;
-			$row2 = $result2->fetch_assoc();
-			$name2=$row2['iduser'];
-			return $name2;
+		public function updateSale($date, $idSale, $idCli, $total, $idProd, $quantity){
+			$sql = "UPDATE venta 
+					SET VEN_FECHA='$date',ID_CATEGORIA='$idSale',ID_CLIENTE='$idCli',VEN_TOTAL='$total'
+					WHERE VEN_ID='$id';
+					UPDATE detalleventa 
+					SET ID_ARTICULO='$idProd',DV_CANTIDAD='$quantity',DV_SUBTOTAL='$total'
+					WHERE ID_VENTA='$id';";
+			$result = $this->connect();
+			if(mysqli_query($result, $sql)){
+				return 'Exito!';
+			}else{
+				return "Error: " . $sql . "<br>" . mysqli_error($result);
+			}
 		}
 		public function deleteSale($id){
-			$sql3 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'MOD'";
-			$result3 = $this->connect()->query($sql3);
-			//$numrows3 = $result3->num_rows;
-			$row3 = $result3->fetch_assoc();
-			$name3=$row3['iduser'];
-			return $name3;
+			$sql = "DELETE FROM venta WHERE VEN_ID = '$id';
+					DELETE FROM detalleventa WHERE ID_VENTA = '$id';";
+			$result = $this->connect()->query($sql);
+			return $result;
 		}
-		public function newSale($user,$pass){
-			$sql5 = "SELECT * FROM user where nombre = '$user' and contraseña = '$pass' and identificador = 'ADM'";
-			$result5 = $this->connect()->query($sql5);
-			//$numrows5 = $result5->num_rows;
-			$row5 = $result5->fetch_assoc();
-			$name5=$row5['iduser'];
-			return $name5;
+		public function newSale($date,$idUser,$idClient,$quantity,$total){
+			$sql = "INSERT INTO venta(VEN_FECHA, ID_USUARIO, ID_CLIENTE, VEN_TOTAL) 
+						VALUES ('$date','$idUser','$idClient','$total');";
+			$result = $this->connect();
+			if(mysqli_query($result, $sql)){
+				return 'Exito!';
+			}else{
+				return "Error: " . $sql . "<br>" . mysqli_error($result);
+			}
+		}
+		public function newSaleDetail($idProd,$quantity,$idSale,$total){			
+			$sql = "INSERT INTO detalleventa(ID_ARTICULO, DV_CANTIDAD, ID_VENTA, DV_SUBTOTAL) 
+						VALUES ('$idProd','$quantity','$idSale','$total');";			
+			$result = $this->connect();			
+			if(mysqli_query($result, $sql)){
+				return 'Exito!';
+			}else{
+				return "Error: " . $sql . "<br>" . mysqli_error($result);
+			}
+		}
+		public function getLastSale($usrId){			
+			$sql = "SELECT MAX(VEN_ID)
+					FROM venta
+					WHERE ID_USUARIO = '$usrId'";
+			$result = $this->connect()->query($sql);
+			if($result->num_rows>0){
+				return $result;
+			}else{
+				return false;
+			}
 		}
 	}
 

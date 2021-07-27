@@ -12,7 +12,7 @@
         if ($result->num_rows > 0) { 
             while ($row = $result->fetch_array()) { 
                 if($password==$row['USR_PASSWORD']){
-                    $cod_usuario=$row['USR_CODIGO'];                          
+                    $cod_usuario=$row['USR_ID'];                          
                     $_SESSION['CODIGO']=$cod_usuario;
                     $_SESSION['USUARIO']=$username;
                     $_SESSION['PASSWORD']=$row['USR_PASSWORD'];
