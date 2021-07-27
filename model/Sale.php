@@ -86,13 +86,13 @@ include_once 'DataBase.php';
 		}
 		public function updateLastSaleTotal($id,$total){			
 			$sql = "UPDATE venta 
-					SET VEN_TOTAL='$date'
+					SET VEN_TOTAL='$total'
 					WHERE VEN_ID='$id';";
 			$result = $this->connect()->query($sql);
-			if($result->num_rows>0){
-				return $result;
+			if(mysqli_query($result, $sql)){
+				return 'Exito!';
 			}else{
-				return false;
+				return "Error: " . $sql . "<br>" . mysqli_error($result);
 			}
 		}
 	}

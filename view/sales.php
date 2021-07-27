@@ -16,9 +16,15 @@
                 url: '../controller/sales/getProducts.php',
                 success: function (response) {
                     productsHtml=response;
-                    $( "div.productsList" ).replaceWith("<div class='productsList' id='productsList'><label for='saleProdIdE' class='col-form-label'>Articulo:</label><select class='form-select' aria-label='Products select' id='saleProdIdE' name='saleProdIdE' required><option selected disabled>Ninguna</option>"+productsHtml+"</select><div class='row'><div class='mb-3'><label for='saleQuant' class='col-form-label'>Cantidad:</label><input type='number' class='form-control' id='saleQuant' name='saleQuant' placeholder='100' required></div></div></div>");
+                    $( "div.productsList" ).replaceWith("<div class='productsList' id='productsList'><label for='saleProdIdE' class='col-form-label'>Articulo:</label><select class='form-select' aria-label='Products select' id='saleProdIdE' name='saleProdIdE' required><option selected disabled>Ninguna</option>"+productsHtml+"</select><div class='row'><div class='mb-3'><label for='saleQuant' class='col-form-label'>Cantidad:</label><input type='number' min='1' class='form-control' id='saleQuant' name='saleQuant' placeholder='100' required></div></div></div>");
                 }
             });
+        });
+    </script>    
+    <script>
+        $(document).on("click", ".openDeleteModal", function () {
+            var id = $(this).data('id');
+            $(".idDelInput #saleIdDel").val( id );
         });
     </script>
 
@@ -178,7 +184,7 @@
                                     <div class="row">
                                         <div class="mb-3">
                                             <label for="saleQuant1" class="col-form-label">Cantidad:</label>
-                                            <input type="number" class="form-control" id="saleQuant1" name="saleQuant1" placeholder="100" required>
+                                            <input type="number" min="1" class="form-control" id="saleQuant1" name="saleQuant1" placeholder="100" required>
                                         </div>
                                     </div>
                                 </div>
@@ -199,18 +205,18 @@
     <!-- New Sale Modal -->
 
     <!-- Delete Sale Modal -->
-    <div class="modal fade" id="delCatModal" tabindex="-1" aria-labelledby="delCatModal" aria-hidden="true">
+    <div class="modal fade" id="delSaleModal" tabindex="-1" aria-labelledby="delSaleModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title message_error" id="exampleModalLabel">¡Al eliminar esta venta podria afectar algunos registros!</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method='post' action="../controller/categories/deleteCategory.php">                
+                <form method='post' action="../controller/sales/deleteSale.php">                
                     <div class="modal-body">
                         <div class="mb-3 idDelInput">        
-                            <label for="cat_idD" class="col-form-label">ID de la venta por eliminar:</label>
-                            <input type="text" class="form-control" id="cat_idD" name="cat_idD" readonly>
+                            <label for="saleIdDel" class="col-form-label">ID de la venta por eliminar:</label>
+                            <input type="text" class="form-control" id="saleIdDel" name="saleIdDel" readonly>
                         </div>
                         <h5>¿Esta seguro que desea eliminar esta venta?</h5>
                         <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
@@ -253,7 +259,8 @@
                 for(i=1 ; i<=c ; i++){
                     prodId=$('#saleProdIdE'+i).val();
                     quantity=$('#saleQuant'+i).val();
-                    prodsList.push({"prodId":prodId, "quantity":quantity});
+                    newProd={"prodId":prodId, "quantity":quantity};
+                    prodsList.push(newProd);
                 }
                 clientId=$('#saleCliId').val();
                 
@@ -264,22 +271,27 @@
                 .forEach(function (form) {
                     form.addEventListener('submit', function (event) {
                     if (!form.checkValidity()) {
-                        console.log('Formulario no valido!');
                         event.preventDefault();
                         event.stopPropagation();
-                    }else{
-                        $.ajax({                
-                            url:"../controller/sales/newSale.php", 
-                            type: "POST",
-                            data: { saleCliId: clientId, prodsList: JSON.stringify(prodsList)},
-                            success: function(data){
-                                console.log(data);
-                            }
-                        })
                     }
                     form.classList.add('was-validated')
-                    }, false)
-                });    
+                    })
+                });
+
+                if($("#newSaleForm").valid()){
+                    console.log(prodsList);
+                    $.ajax({                
+                        url:"../controller/sales/newSale.php", 
+                        type: "POST",
+                        data: { saleCliId: clientId, prodsList: JSON.stringify(prodsList)},
+                        success: function(data){
+                            console.log(data);
+                            window.location.replace('../../view/sales.php');
+                        }
+                    }) 
+                }else{
+                    console.log('Formulario no valido!');
+                }
             });		
         });
     </script>
