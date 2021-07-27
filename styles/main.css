@@ -42,3 +42,11 @@ body {
 .newSaleBody {
 	height: 100%;
 }
+.error {
+	color: red;
+	text-align: center;
+}
+.valid {
+	color: red;
+	text-align: center;
+}

@@ -8,54 +8,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/main.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+     
     <script>
-        $(document).on("click", ".openEditModal", function () {
-            var id = $(this).data('id');
-            $(".idInput #saleIdEdit").val( id );
-            $.getJSON('../controller/sales/getSaleDetails.php',{'sale_id':id} ,function( data ) {
-                console.log(data);
-                $(".saleCliIdInput #saleCliIdE").val( data.ID_CLIENTE );
-                $(".saleProdIdInput #saleProdIdE").val( data.ID_ARTICULO );
-                $(".saleQuantInput #saleQuantE").val( data.DV_CANTIDAD );
-            });
-        });
-    </script>    
-    <script language="javascript">        
-		$(document).ready(function () {
-            var c=1;
-            $(document).on("click", ".addProductBtn", function () {
-                var productsHtml;
-                c++;
-                $.ajax({ 
-                    url: '../controller/sales/getProducts.php',
-                    success: function (response) {
-                        productsHtml=response;
-                        $( "div.productsList" ).append("<label for='saleProdIdE' class='col-form-label'>Articulo:</label><select class='form-select' aria-label='Products select' id='saleProdIdE"+c+"' name='saleProdIdE"+c+"' required><option value='' selected disabled>Ninguna</option>"+productsHtml+"</select><div class='row'><div class='mb-3'><label for='saleQuant' class='col-form-label'>Cantidad:</label><input type='number' class='form-control' id='saleQuant"+c+"' name='saleQuant"+c+"' placeholder='100' required></div></div>");
-                    }
-                });
-            });
-            $(".submitNewSale").click(function () {
-                var prodsList = [];
-                var prodId;
-                var clientId;
-                var quantity;
-                for(i=1 ; i<=c ; i++){
-                    prodId=$('#saleProdIdE'+i).val();
-                    quantity=$('#saleQuant'+i).val();
-                    prodsList.push({"prodId":prodId, "quantity":quantity});
+        $('#newSaleModal').on('hidden.bs.modal', function (e) {
+            var productsHtml;
+            $.ajax({ 
+                url: '../controller/sales/getProducts.php',
+                success: function (response) {
+                    productsHtml=response;
+                    $( "div.productsList" ).replaceWith("<div class='productsList' id='productsList'><label for='saleProdIdE' class='col-form-label'>Articulo:</label><select class='form-select' aria-label='Products select' id='saleProdIdE' name='saleProdIdE' required><option selected disabled>Ninguna</option>"+productsHtml+"</select><div class='row'><div class='mb-3'><label for='saleQuant' class='col-form-label'>Cantidad:</label><input type='number' class='form-control' id='saleQuant' name='saleQuant' placeholder='100' required></div></div></div>");
                 }
-                clientId=$('#saleCliId').val();
-
-                $.ajax({                
-                    url:"../controller/sales/newSale.php", 
-                    type: "POST",
-                    data: { saleCliId: clientId, prodsList: JSON.stringify(prodsList)},
-                    success: function(data){
-                        console.log(data);
-                    }
-                });
-            });		
+            });
         });
     </script>
 
@@ -163,7 +126,7 @@
                             <th scope="col">FECHA</th>
                             <?php
                                 if($_SESSION['TIPO']=='admin'){
-                                    echo "<th scope='col'>Editar</th>";
+                                    echo "<th scope='col'>Eliminar</th>";
                                 }
                             ?>
                         </tr>
@@ -187,7 +150,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Nueva Venta</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form class="needs-validation" id='newSaleForm'>
+                <form class="needs-validation" id='newSaleForm' novalidate>
                     <div class="modal-body newSaleBody">
                         <div class="mb-3">
                             <label for="saleCliId" class="col-form-label">NIT Cliente:</label>
@@ -261,22 +224,64 @@
         </div>
     </div>
     <!-- Delete Sale Modal -->
-
+    
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script>
-        $('#newSaleModal').on('hidden.bs.modal', function (e) {
-            var productsHtml;
-            $.ajax({ 
-                url: '../controller/sales/getProducts.php',
-                success: function (response) {
-                    productsHtml=response;
-                    $( "div.productsList" ).replaceWith("<div class='productsList' id='productsList'><label for='saleProdIdE' class='col-form-label'>Articulo:</label><select class='form-select' aria-label='Products select' id='saleProdIdE' name='saleProdIdE' required><option selected disabled>Ninguna</option>"+productsHtml+"</select><div class='row'><div class='mb-3'><label for='saleQuant' class='col-form-label'>Cantidad:</label><input type='number' class='form-control' id='saleQuant' name='saleQuant' placeholder='100' required></div></div></div>");
-                }
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+    <script language="javascript">        
+		$(document).ready(function () {
+            var c=1;
+            $(document).on("click", ".addProductBtn", function () {
+                var productsHtml;
+                c++;
+                $.ajax({ 
+                    url: '../controller/sales/getProducts.php',
+                    success: function (response) {
+                        productsHtml=response;
+                        $( "div.productsList" ).append("<label for='saleProdIdE' class='col-form-label'>Articulo:</label><select class='form-select' aria-label='Products select' id='saleProdIdE"+c+"' name='saleProdIdE"+c+"' required><option value='' selected disabled>Ninguna</option>"+productsHtml+"</select><div class='row'><div class='mb-3'><label for='saleQuant' class='col-form-label'>Cantidad:</label><input type='number' class='form-control' id='saleQuant"+c+"' name='saleQuant"+c+"' placeholder='100' required></div></div>");
+                    }
+                });
             });
+            $(".submitNewSale").click(function () {
+                var prodsList = [];
+                var prodId;
+                var clientId;
+                var quantity;
+                for(i=1 ; i<=c ; i++){
+                    prodId=$('#saleProdIdE'+i).val();
+                    quantity=$('#saleQuant'+i).val();
+                    prodsList.push({"prodId":prodId, "quantity":quantity});
+                }
+                clientId=$('#saleCliId').val();
+                
+                var forms = document.querySelectorAll('.needs-validation');
+
+                // Loop over them and prevent submission
+                Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        console.log('Formulario no valido!');
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }else{
+                        $.ajax({                
+                            url:"../controller/sales/newSale.php", 
+                            type: "POST",
+                            data: { saleCliId: clientId, prodsList: JSON.stringify(prodsList)},
+                            success: function(data){
+                                console.log(data);
+                            }
+                        })
+                    }
+                    form.classList.add('was-validated')
+                    }, false)
+                });    
+            });		
         });
     </script>
- 
 </body>
 </html>
