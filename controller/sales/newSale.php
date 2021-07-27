@@ -6,28 +6,28 @@
     $userId=$_SESSION['CODIGO'];
     $clientId=$_POST['saleCliId'];
     $prodsData=$_POST['prodsList'];
-    $products=json_decode($prodsData);
+    $products=json_decode($prodsData);    
+    $date=date('d/m/Y', strtotime('-1 day'));
+    $total=0;
+
+    $sale = new Sale;
+    $newSaleResult = $sale->newSale($date,$userId,$clientId,$total);
+    $lastSaleId = $sale->getLastSale($userId);
+
     for($i=0;$i<count($products);$i++) {
-        print_r ($products[$i]->prodId);
+        $product = new Product;    
+        $productData = $product->getProductById($products[$i]->prodId);
+        if(!empty($productData)){
+            while($row=$productData->fetch_array()){
+                $price=$row['ART_PRECIO'];
+            }
+            $subtotal=$price*$products[$i]->quantity
+            $total+=$subtotal;
+            $newSaleDetailResult = $sale->newSaleDetail($products[$i]->prodId,$quantity,$lastSaleId,$subtotal);
+        }
     }
-
-    // $prodId=$_POST['saleProdId'];
-    // $quantity=$_POST['saleQuant'];
-    
-    // $product = new Product;    
-    // $productData = $product->getProductById($prodId);
-    // if(!empty($productData)){
-    //     while($row=$productData->fetch_array()){
-    //         $price=$row['ART_PRECIO'];
-    //     }
-    // }
-    // $total=$price*$quantity;
-    // $date=date('d/m/Y', strtotime('-1 day'));
-
-    // $sale = new Sale;
-    // $newSaleResult = $sale->newSale($date,$userId,$clientId,$quantity,$total);
-    // $lastSaleId = $sale->getLastSale($userId);
-    // $newSaleDetailResult = $sale->newSaleDetail($prodId,$quantity,$lastSaleId,$total);
+    $newSaleTotalUpdateResponse = $sale->updateLastSaleTotal($lastSaleId,$total);
+    print_r($newSaleResult,$lastSaleId,$productData,$newSaleDetailResult,$newSaleTotalUpdateResponse);
 
     // header('Location: ../../view/sales.php');
 

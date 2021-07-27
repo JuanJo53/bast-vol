@@ -53,7 +53,7 @@ include_once 'DataBase.php';
 			$result = $this->connect()->query($sql);
 			return $result;
 		}
-		public function newSale($date,$idUser,$idClient,$quantity,$total){
+		public function newSale($date,$idUser,$idClient,$total){
 			$sql = "INSERT INTO venta(VEN_FECHA, ID_USUARIO, ID_CLIENTE, VEN_TOTAL) 
 						VALUES ('$date','$idUser','$idClient','$total');";
 			$result = $this->connect();
@@ -77,6 +77,17 @@ include_once 'DataBase.php';
 			$sql = "SELECT MAX(VEN_ID)
 					FROM venta
 					WHERE ID_USUARIO = '$usrId'";
+			$result = $this->connect()->query($sql);
+			if($result->num_rows>0){
+				return $result;
+			}else{
+				return false;
+			}
+		}
+		public function updateLastSaleTotal($id,$total){			
+			$sql = "UPDATE venta 
+					SET VEN_TOTAL='$date'
+					WHERE VEN_ID='$id';";
 			$result = $this->connect()->query($sql);
 			if($result->num_rows>0){
 				return $result;
