@@ -7,7 +7,8 @@
     $clientId=$_POST['saleCliId'];
     $prodsData=$_POST['prodsList'];
     $products=json_decode($prodsData);    
-    $date=date('Y-m-d', strtotime('-1 day'));
+    $date=date('Y-m-d');
+    // $date=date('Y-m-d', strtotime('-1 day'));
     $total=0;
 
     $sale = new Sale;

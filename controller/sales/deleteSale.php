@@ -5,6 +5,7 @@
         $saleId=$_POST['saleIdDel'];
         $sale = new Sale;
         $response = $sale->deleteSale($saleId);
+        $responseDetails = $sale->deleteSaleDetail($saleId);
         return $response;
     }
     echo removeSale();

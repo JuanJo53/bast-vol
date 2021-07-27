@@ -9,6 +9,7 @@ include_once 'DataBase.php';
 					AND v.ID_CLIENTE=c.CLI_ID 
 					AND dv.ID_ARTICULO=a.ART_ID
 					AND dv.ID_VENTA=v.VEN_ID
+					GROUP BY v.VEN_ID 
 					ORDER BY v.VEN_ID ASC";
 			$result = $this->connect()->query($sql);
 			if($result->num_rows>0){
@@ -50,6 +51,11 @@ include_once 'DataBase.php';
 		public function deleteSale($id){
 			$sql = "DELETE FROM venta WHERE VEN_ID = '$id';
 					DELETE FROM detalleventa WHERE ID_VENTA = '$id';";
+			$result = $this->connect()->query($sql);
+			return $result;
+		}
+		public function deleteSaleDetail($id){
+			$sql = "DELETE FROM detalleventa WHERE ID_VENTA = '$id';";
 			$result = $this->connect()->query($sql);
 			return $result;
 		}

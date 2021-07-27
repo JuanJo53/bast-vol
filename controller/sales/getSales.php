@@ -16,7 +16,7 @@
                     <td>".$row['ART_NOMBRE']."</td>
                     <td>".$row['DV_CANTIDAD']."</td>
                     <td>".$row['VEN_TOTAL']."</td>
-                    <td>".$row['VEN_FECHA']."</td>";
+                    <td>".date("d/m/Y", strtotime($row['VEN_FECHA']))."</td>";
                 if($_SESSION['TIPO']=='admin'){
                     $salesHtml.="                    
                         <td>
