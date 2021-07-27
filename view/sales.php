@@ -131,8 +131,11 @@
                             <th scope="col">CANTIDAD</th>
                             <th scope="col">TOTAL</th>
                             <th scope="col">FECHA</th>
-                            <th scope="col">Editar</th>
-                            <th scope="col">Eliminar</th>
+                            <?php
+                                if($_SESSION['TIPO']=='admin'){
+                                    echo "<th scope='col'>Editar</th>";
+                                }
+                            ?>
                         </tr>
                     </thead>
                     <tbody>
