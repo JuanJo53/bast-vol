@@ -239,31 +239,5 @@
     </div>    
     <!-- Edit Sale Modal -->
 
-    <!-- Delete Sale Modal -->
-    <div class="modal fade" id="delSaleModal" tabindex="-1" aria-labelledby="delSaleModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar esta venta?</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method='post' action="../controller/sales/deleteSale.php">
-                    <div class="modal-body">
-                        <div class="mb-3 idDelInput">        
-                            <label for="sale_idDel" class="col-form-label">ID de la venta por eliminar:</label>
-                            <input type="text" class="form-control" id="sale_idDel" name="sale_idDel" readonly>
-                        </div>
-                        <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-success">Si</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Delete Sale Modal -->
-
 </body>
 </html>
