@@ -32,11 +32,13 @@
                 url: '../controller/sales/getProducts.php',
                 success: function (response) {
                     productsHtml=response;
-                    $( ".productsList" ).append("<label for='saleProdIdE' class='col-form-label'>Articulo:</label><select class='form-select' aria-label='Products select' id='saleProdIdE' name='saleProdIdE' required><option selected disabled>Ninguna</option>"+productsHtml+"</select><div class='row'><div class='mb-3'><label for='saleQuant' class='col-form-label'>Cantidad:</label><input type='number' class='form-control' id='saleQuant' name='saleQuant' placeholder='100' required></div></div>");
+                    $( "div.productsList" ).append("<label for='saleProdIdE' class='col-form-label'>Articulo:</label><select class='form-select' aria-label='Products select' id='saleProdIdE' name='saleProdIdE' required><option selected disabled>Ninguna</option>"+productsHtml+"</select><div class='row'><div class='mb-3'><label for='saleQuant' class='col-form-label'>Cantidad:</label><input type='number' class='form-control' id='saleQuant' name='saleQuant' placeholder='100' required></div></div>");
                 }
             });
         });
     </script>
+
+
 </head>
 <body data-spy="scroll" data-target="#navbar" data-offset="56">
 	<!--Header-->
@@ -261,6 +263,17 @@
         </div>
     </div>    
     <!-- Edit Sale Modal -->
-
+    <script>
+        $('#newSaleModal').on('hidden.bs.modal', function (e) {
+            var productsHtml;
+            $.ajax({ 
+                url: '../controller/sales/getProducts.php',
+                success: function (response) {
+                    productsHtml=response;
+                    $( "div.productsList" ).replaceWith("<div class='productsList' id='productsList'><label for='saleProdIdE' class='col-form-label'>Articulo:</label><select class='form-select' aria-label='Products select' id='saleProdIdE' name='saleProdIdE' required><option selected disabled>Ninguna</option>"+productsHtml+"</select><div class='row'><div class='mb-3'><label for='saleQuant' class='col-form-label'>Cantidad:</label><input type='number' class='form-control' id='saleQuant' name='saleQuant' placeholder='100' required></div></div></div>");
+                }
+            });
+        });
+    </script>
 </body>
 </html>
