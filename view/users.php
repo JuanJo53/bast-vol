@@ -189,7 +189,7 @@
                     <div class="mb-3">
                         <label for="usr_type" class="col-form-label">Tipo:</label>
                         <select class="form-select" aria-label="Category select" id="usr_type" name="usr_type" required> 
-                            <option selected disabled>Ninguna</option>
+                            <option value="" selected disabled>Ninguna</option>
                             <option value="admin">Administrador</option>
                             <option value="empleado">Empleado</option>
                         </select>
@@ -246,7 +246,7 @@
                     <div class="mb-3 typeInput">
                         <label for="usr_typee" class="col-form-label">Tipo:</label>
                         <select class="form-select" aria-label="Category select" id="usr_typee" name="usr_typee" required> 
-                            <option selected disabled>Ninguna</option>
+                            <option value="" selected disabled>Ninguna</option>
                             <option value="admin">Administrador</option>
                             <option value="empleado">Empleado</option>
                         </select>
@@ -267,15 +267,16 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar al usuario?</h5>
+                <h4 class="modal-title message_error" id="exampleModalLabel">¡Al eliminar este usuario podria afectar algunas ventas registradas!</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method='post' action="../controller/users/deleteUser.php">
                     <div class="modal-body">
                         <div class="mb-3 idDelInput">                        
-                                <label for="usr_idD" class="col-form-label">ID del usuario por eliminar:</label>
-                                <input type="text" class="form-control" id="usr_idD" name="usr_idD" readonly>
+                            <label for="usr_idD" class="col-form-label">ID del usuario por eliminar:</label>
+                            <input type="text" class="form-control" id="usr_idD" name="usr_idD" readonly>
                         </div>
+                        <h5>¿Esta seguro que desea eliminar a este usuario?</h5>
                         <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
                     </div>
                     <div class="modal-footer">

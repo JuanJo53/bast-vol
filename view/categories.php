@@ -200,7 +200,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar este proveedor?</h5>
+                    <h4 class="modal-title message_error" id="exampleModalLabel">¡Al eliminar esta categoria podria afectar algunos articulos en el inventario!</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method='post' action="../controller/categories/deleteCategory.php">                
@@ -209,6 +209,7 @@
                             <label for="cat_idD" class="col-form-label">ID de la categoria por eliminar:</label>
                             <input type="text" class="form-control" id="cat_idD" name="cat_idD" readonly>
                         </div>
+                        <h5>¿Esta seguro que desea eliminar esta categoria?</h5>
                         <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
                     </div>
                     <div class="modal-footer">

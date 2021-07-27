@@ -166,7 +166,7 @@
                         <div class="mb-3">
                             <label for="prod_idCat" class="col-form-label">Categoria:</label>
                             <select class="form-select" aria-label="Category select" id="prod_idCat" name="prod_idCat" required> 
-                                <option selected disabled>Ninguna</option>
+                                <option value="" selected disabled>Ninguna</option>
                                 <?php
                                     echo showCategories();
                                 ?>
@@ -175,7 +175,7 @@
                         <div class="mb-3">
                             <label for="prod_idProv" class="col-form-label">Proveedor:</label>
                             <select class="form-select" aria-label="Provider select" id="prod_idProv" name="prod_idProv" required>
-                                <option selected disabled>Ninguna</option>
+                                <option value="" selected disabled>Ninguna</option>
                                 <?php
                                     echo showProviders();
                                 ?>
@@ -221,7 +221,7 @@
                         <div class="mb-3 catInput">
                             <label for="prod_idCatE" class="col-form-label">Categoria:</label>
                             <select class="form-select" aria-label="Category select" id="prod_idCatE" name="prod_idCatE" required> 
-                                <option selected disabled>Ninguna</option>
+                                <option value="" selected disabled>Ninguna</option>
                                 <?php
                                     echo showCategories();
                                 ?>
@@ -230,7 +230,7 @@
                         <div class="mb-3 provInput">
                             <label for="prod_idProvE" class="col-form-label">Proveedor:</label>
                             <select class="form-select" aria-label="Provider select" id="prod_idProvE" name="prod_idProvE" required>
-                                <option selected disabled>Ninguna</option>
+                                <option value="" selected disabled>Ninguna</option>
                                 <?php
                                     echo showProviders();
                                 ?>
@@ -260,15 +260,16 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar el articulo?</h5>
+                    <h4 class="modal-title message_error" id="exampleModalLabel">¡Al eliminar este articulo podria afectar algunas ventas registradas!</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method='post' action="../controller/products/deleteProduct.php">
                     <div class="modal-body">
                         <div class="mb-3 idDelInput">        
-                            <label for="prod_idD" class="col-form-label">ID del producto por eliminar:</label>
+                            <label for="prod_idD" class="col-form-label">ID del articulo por eliminar:</label>
                             <input type="text" class="form-control" id="prod_idD" name="prod_idD" readonly>
                         </div>
+                        <h5>¿Esta seguro que desea eliminar este articulo?</h5>
                         <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
                     </div>
                     <div class="modal-footer">

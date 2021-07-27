@@ -239,7 +239,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar este proveedor?</h5>
+                    <h4 class="modal-title message_error" id="exampleModalLabel">¡Al eliminar este proveedor podria afectar algunos articulos en el inventario!</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method='post' action="../controller/providers/deleteProvider.php">                
@@ -248,6 +248,7 @@
                             <label for="prov_idDel" class="col-form-label">ID de proveedor por eliminar:</label>
                             <input type="text" class="form-control" id="prov_idDel" name="prov_idDel" readonly>
                         </div>
+                        <h5>¿Esta seguro que desea eliminar este proveedor?</h5>
                         <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
                     </div>
                     <div class="modal-footer">

@@ -33,6 +33,7 @@ body {
 }
 .message_error {
 	color: red;
+	text-align: center;
 }
 .products {
 	margin: 50px;

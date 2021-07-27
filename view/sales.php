@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/main.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <script>
         $(document).on("click", ".openEditModal", function () {
             var id = $(this).data('id');
@@ -30,7 +31,7 @@
                     url: '../controller/sales/getProducts.php',
                     success: function (response) {
                         productsHtml=response;
-                        $( "div.productsList" ).append("<label for='saleProdIdE' class='col-form-label'>Articulo:</label><select class='form-select' aria-label='Products select' id='saleProdIdE"+c+"' name='saleProdIdE"+c+"' required><option selected disabled>Ninguna</option>"+productsHtml+"</select><div class='row'><div class='mb-3'><label for='saleQuant' class='col-form-label'>Cantidad:</label><input type='number' class='form-control' id='saleQuant"+c+"' name='saleQuant"+c+"' placeholder='100' required></div></div>");
+                        $( "div.productsList" ).append("<label for='saleProdIdE' class='col-form-label'>Articulo:</label><select class='form-select' aria-label='Products select' id='saleProdIdE"+c+"' name='saleProdIdE"+c+"' required><option value='' selected disabled>Ninguna</option>"+productsHtml+"</select><div class='row'><div class='mb-3'><label for='saleQuant' class='col-form-label'>Cantidad:</label><input type='number' class='form-control' id='saleQuant"+c+"' name='saleQuant"+c+"' placeholder='100' required></div></div>");
                     }
                 });
             });
@@ -186,12 +187,12 @@
                     <h5 class="modal-title" id="exampleModalLabel">Nueva Venta</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form>
+                <form class="needs-validation" id='newSaleForm'>
                     <div class="modal-body newSaleBody">
                         <div class="mb-3">
                             <label for="saleCliId" class="col-form-label">NIT Cliente:</label>
                             <select class="form-select" aria-label="Clients select" id="saleCliId" name="saleCliId" required>
-                                <option selected disabled>Ninguna</option>
+                                <option value="" selected disabled>Ninguna</option>
                                 <?php
                                     echo showClients();
                                 ?>
@@ -206,7 +207,7 @@
                                 <div class="productsList" id="productsList">                                    
                                     <label for="saleProdIdE1" class="col-form-label">Articulo:</label>
                                     <select class="form-select" aria-label="Products select" id="saleProdIdE1" name="saleProdIdE1" required>
-                                        <option selected disabled>Ninguna</option>
+                                        <option value="" selected disabled>Ninguna</option>
                                         <?php
                                             echo showProducts();
                                         ?>
@@ -226,7 +227,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-success submitNewSale">Registrar</button>
+                        <button type="submit" class="btn btn-success submitNewSale">Registrar</button>
                     </div>
                 </form>
             </div>
@@ -234,54 +235,32 @@
     </div>    
     <!-- New Sale Modal -->
 
-    <!-- Edit Sale Modal -->
-    <div class="modal fade" id="editSaleModal" tabindex="-1" aria-labelledby="editSaleModal" aria-hidden="true">
+    <!-- Delete Sale Modal -->
+    <div class="modal fade" id="delCatModal" tabindex="-1" aria-labelledby="delCatModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Detalles de la Venta</h5>
+                    <h4 class="modal-title message_error" id="exampleModalLabel">¡Al eliminar esta venta podria afectar algunos registros!</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method='put'>
+                <form method='post' action="../controller/categories/deleteCategory.php">                
                     <div class="modal-body">
-                        <div class="mb-3 idInput">        
-                            <label for="saleIdEdit" class="col-form-label">ID:</label>
-                            <input type="text" class="form-control" id="saleIdEdit" name="saleIdEdit" readonly>
+                        <div class="mb-3 idDelInput">        
+                            <label for="cat_idD" class="col-form-label">ID de la venta por eliminar:</label>
+                            <input type="text" class="form-control" id="cat_idD" name="cat_idD" readonly>
                         </div>
-                        <div class="mb-3 saleCliIdInput">
-                            <label for="saleCliIdE" class="col-form-label">NIT Cliente:</label>
-                            <select class="form-select" aria-label="Clients select" id="saleCliIdE" name="saleCliIdE" required>
-                                <option selected disabled>Ninguna</option>
-                                <?php
-                                    echo showClients();
-                                ?>
-                            </select>
-                        </div>
-                        <div class="mb-3 saleProdIdInput">
-                            <label for="saleProdIdE" class="col-form-label">Articulos:</label>
-                            <div class="products" id="products">
-                                <select class="form-select" aria-label="Products select" id="saleProdIdE" name="saleProdIdE" required>
-                                    <option selected disabled>Ninguna</option>
-                                    <?php
-                                        echo showProducts();
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3 saleQuantInput">
-                            <label for="saleQuantE" class="col-form-label">Cantidad:</label>
-                            <input type="number" class="form-control" id="saleQuantE" name="saleQuantE" placeholder="100" required>
-                        </div>
+                        <h5>¿Esta seguro que desea eliminar esta venta?</h5>
+                        <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-success">Registrar</button>
+                        <button type="submit" class="btn btn-success">Si</button>
                     </div>
                 </form>
             </div>
         </div>
-    </div>    
-    <!-- Edit Sale Modal -->
+    </div>
+    <!-- Delete Sale Modal -->
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

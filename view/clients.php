@@ -229,7 +229,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">¿Esta seguro que desea eliminar al cliente?</h5>
+                <h4 class="modal-title message_error" id="exampleModalLabel">¡Al eliminar este cliente podria afectar algunas ventas registradas!</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method='post' action="../controller/clients/deleteClient.php">                
@@ -238,6 +238,7 @@
                             <label for="cli_idD" class="col-form-label">ID del cliente por eliminar:</label>
                             <input type="text" class="form-control" id="cli_idD" name="cli_idD" readonly>
                         </div>
+                        <h5>¿Esta seguro que desea eliminar este cliente?</h5>
                         <h1 class='badge bg-warning text-dark'>¡Esta accion no se puede deshacer!</h1>
                     </div>
                     <div class="modal-footer">
