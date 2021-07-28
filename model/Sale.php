@@ -10,8 +10,7 @@ include_once 'DataBase.php';
 					AND dv.ID_ARTICULO=a.ART_ID
 					AND dv.ID_VENTA=v.VEN_ID
 					AND v.VEN_FECHA BETWEEN '$startDate' and '$endDate'
-					AND dv.ID_VENTA=v.VEN_ID					
-					GROUP BY v.VEN_ID
+					AND dv.ID_VENTA=v.VEN_ID	
 					ORDER BY v.VEN_ID ASC";
 			$result = $this->connect()->query($sql);
 			if($result->num_rows>0){
