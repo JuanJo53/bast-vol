@@ -131,10 +131,10 @@
             </button>
         </div>
         <div class="dateFilter">
-            <form action="">
-                <input type="text" id="datepickerStart">
-                <input type="text" id="datepickerEnd">            
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newSaleModal" role="button">
+            <form>
+                <input type="text" id="startDate" name='startDate'>
+                <input type="text" id="endDate" name='endDate'>            
+                <button class="btn btn-primary" type='button' role="button" id='searchByDate' name='searchByDate'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                     </svg>
@@ -160,10 +160,7 @@
                         </tr>
                     </thead>
                     <tbody id='salesTable'>
-                        <?php
-                            include_once '../controller/sales/getSales.php';
-                            echo showSales();
-                        ?>
+
                     </tbody>
                 </table>
             </div>
@@ -185,6 +182,7 @@
                             <select class="form-select" aria-label="Clients select" id="saleCliId" name="saleCliId" required>
                                 <option value="" selected disabled>Ninguna</option>
                                 <?php
+                                    include_once '../controller/sales/getProdsAndClis.php';
                                     echo showClients();
                                 ?>
                             </select>
@@ -357,23 +355,32 @@
     </script>
     <script>        
 		$(document).ready(function () {
-            $('#datepickerStart').datepicker('setDate', new Date('2021-01-01'));
-            $('#datepickerEnd').datepicker('setDate', new Date());
-            // var id = $(this).data('id');
-            // $.ajax({
-            //     type: "POST",
-            //     url: '../controller/sales/getSales.php',
-            //     dataType: 'json',
-            //     data: {function: 'showSales', arguments: [1, 2]},
-            //     success: function (obj, textstatus) {
-            //                 if( !('error' in obj) ) {
-            //                     yourVariable = obj.result;
-            //                 }
-            //                 else {
-            //                     console.log(obj.error);
-            //                 }
-            //             }
-            // });
+            $('#startDate').datepicker('setDate', new Date('2021-1-1'));
+            $('#endDate').datepicker('setDate', new Date());
+            var startDate=$('#startDate').val();
+            var endDate=$('#endDate').val();
+            $.ajax({
+                url:  '../controller/sales/getSales.php',
+                type: "POST",
+                data: {function: 'showSales', startDate: startDate, endDate: endDate },
+                success: function(response){
+                    $( "#salesTable" ).html('');
+                    $( "#salesTable" ).append(response);
+                }
+            });
+            $('#searchByDate').click(function(){
+                var startDate=$('#startDate').val();
+                var endDate=$('#endDate').val();
+                $.ajax({
+                    url:  '../controller/sales/getSales.php',
+                    type: "POST",
+                    data: {function: 'showSales', startDate: startDate, endDate: endDate },
+                    success: function(response){
+                        $( "#salesTable" ).html('');
+                        $( "#salesTable" ).append(response);
+                    }
+                });
+            })
         });
     </script>
 </body>

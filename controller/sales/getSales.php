@@ -1,11 +1,41 @@
 <?php
-    include '../model/Sale.php';
-    include '../model/Client.php';
-    include '../model/Product.php';
+    include '../../model/Sale.php';
+    session_start();
+
+    // if(isset($_POST['function'])){
+    //     if($_POST['function']=='showSales'){
+            
+    //     }else{
+    //         echo 'bola';
+    //     }
+    // }else{
+    //     echo 'hola23';
+    // }
+    $sDate = $_POST['startDate'];    
+    $sArray = explode('/', $sDate);
+    $sTemp = $sArray[0];
+    $sArray[0] = $sArray[1];
+    $sArray[1] = $sTemp;
+    unset($sTemp);
+    $newSDate = implode('/', $sArray);
     
-    function showSales(){
+    $eDate = $_POST['endDate'];
+    $eArray = explode('/', $eDate);
+    $eTmp = $eArray[0];
+    $eArray[0] = $eArray[1];
+    $eArray[1] = $eTmp;
+    unset($eTmp);
+    $newEDate = implode('/', $eArray);
+
+    $startDate=date("Y-m-d", strtotime(strtr($newSDate,'/', '-')));
+    $endDate=date("Y-m-d", strtotime(strtr($newEDate,'/', '-')));
+    echo $startDate."           ";
+    echo $endDate;
+    echo showSalesDate($startDate,$endDate);
+
+    function showSalesDate($startDate,$endDate){
         $sale = new Sale;
-        $sales = $sale->getAllSales();
+        $sales = $sale->getAllSalesDate($startDate,$endDate);
         $salesHtml='';
         if(!empty($sales)){
             while($row=$sales->fetch_array()){
@@ -41,34 +71,6 @@
             $salesHtml.="<tr><th style='color:red';>¡No hay nada que mostrar!</th></tr>";
         }
         return $salesHtml;
-    }
-    function showClients(){
-        $client = new Client;
-        $clients = $client->getAllClients();
-        $clientsHtml='';        
-        if(!empty($clients)){
-            while($row=$clients->fetch_array()){
-                $clientsHtml.="
-                    <option value='".$row['CLI_ID']."'>".$row['CLI_NIT']."</option>";
-            }
-        }else{
-            $clientsHtml.="<option style='color:red';>¡No hay nada que mostrar!</option>";
-        }
-        return $clientsHtml;
-    }
-    function showProducts(){
-        $product = new Product;
-        $products = $product->getAllAvailableProducts();
-        $productsHtml='';        
-        if(!empty($products)){
-            while($row=$products->fetch_array()){
-                $productsHtml.="
-                    <option value='".$row['ART_ID']."'>".$row['ART_NOMBRE']."</option>";
-            }
-        }else{
-            $productsHtml.="<option style='color:red';>¡No hay nada que mostrar!</option>";
-        }
-        return $productsHtml;
     }
 
 ?>
