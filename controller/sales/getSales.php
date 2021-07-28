@@ -35,7 +35,7 @@
 
     function showSalesDate($startDate,$endDate){
         $sale = new Sale;
-        $sales = $sale->getAllSalesDate($startDate,$endDate);
+        $sales = $sale->getAllSales($startDate,$endDate);
         $salesHtml='';
         if(!empty($sales)){
             while($row=$sales->fetch_array()){
