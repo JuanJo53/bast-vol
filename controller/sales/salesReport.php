@@ -20,10 +20,12 @@
     $startDate=date("Y-m-d", strtotime(strtr($newSDate,'/', '-')));
     $endDate=date("Y-m-d", strtotime(strtr($newEDate,'/', '-')));
 
-    function showSalesDate($startDate,$endDate){
+    function showSalesDate($startDate,$endDate,$eDate,$sDate){
         $sale = new Sale;
         $sales = $sale->getAllSales($startDate,$endDate);
         $salesHtml="
+        <h1>&nbsp;&nbsp;&nbsp;&nbsp;REPORTE DE VENTAS</h1>
+        <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;de ".$sDate." a ".$eDate."</h3>
         <table>
             <thead>
                 <tr>
@@ -56,7 +58,7 @@
     header("Content-Type: application/xls");
     $filename="ReporteVentas_".date('d-m-Y').'.xls';
     header("Content-Disposition: attachment; filename=".$filename);
-    echo showSalesDate($startDate,$endDate);
+    echo showSalesDate($startDate,$endDate,$eDate,$sDate);
 
 
 ?>
