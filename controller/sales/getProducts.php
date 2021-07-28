@@ -2,7 +2,7 @@
     include '../../model/Product.php';
     function showProducts(){
         $product = new Product;
-        $products = $product->getAllProducts();
+        $products = $product->getAllAvailableProducts();
         $productsHtml='';        
         if(!empty($products)){
             while($row=$products->fetch_array()){

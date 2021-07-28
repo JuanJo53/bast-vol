@@ -8,7 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/main.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <script>
         $('#newSaleModal').on('hidden.bs.modal', function (e) {
             var productsHtml;
@@ -20,7 +19,20 @@
                 }
             });
         });
-    </script>    
+    </script>
+    <script>
+        $(document).on("click", ".openDetailModal", function () {
+            var id = $(this).data('id');
+            $.ajax({
+                url:'../controller/sales/getSaleProducts.php',
+                method:'post',
+                data:{'saleDetId':id},
+                success: function( data ) {
+                    $( "#productsTable" ).append(data);
+                }
+            });
+        });
+    </script>
     <script>
         $(document).on("click", ".openDeleteModal", function () {
             var id = $(this).data('id');
@@ -118,6 +130,17 @@
                 Nueva Venta
             </button>
         </div>
+        <div class="dateFilter">
+            <form action="">
+                <input type="text" id="datepickerStart">
+                <input type="text" id="datepickerEnd">            
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newSaleModal" role="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
         <div class="row g-4">
             <div class="col">
                 <table class="table table-hover">
@@ -126,18 +149,17 @@
                             <th scope="col">#</th>
                             <th scope="col">EMPLEADO</th>
                             <th scope="col">CLIENTE</th>
-                            <th scope="col">ARTICULO</th>
-                            <th scope="col">CANTIDAD</th>
                             <th scope="col">TOTAL</th>
                             <th scope="col">FECHA</th>
                             <?php
                                 if($_SESSION['TIPO']=='admin'){
+                                    echo "<th scope='col'>Detalle</th>";
                                     echo "<th scope='col'>Eliminar</th>";
                                 }
                             ?>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id='salesTable'>
                         <?php
                             include_once '../controller/sales/getSales.php';
                             echo showSales();
@@ -204,6 +226,41 @@
     </div>    
     <!-- New Sale Modal -->
 
+    <!-- Sale Products Modal -->
+    <div class="modal fade" id="prodDetailModal" tabindex="-1" aria-labelledby="prodDetailModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Productos Incluidos en la Venta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body newSaleBody">
+                    <div class="row g-4">
+                        <div class="col">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">ARTICULO</th>
+                                        <th scope="col">PRECIO</th>
+                                        <th scope="col">CANTIDAD</th>
+                                        <th scope="col">SUBTOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody id='productsTable'>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Atras</button>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <!-- Sale Products Modal -->
+
     <!-- Delete Sale Modal -->
     <div class="modal fade" id="delSaleModal" tabindex="-1" aria-labelledby="delSaleModal" aria-hidden="true">
         <div class="modal-dialog">
@@ -236,6 +293,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
     <script language="javascript">        
 		$(document).ready(function () {
@@ -289,6 +348,32 @@
                     console.log('Formulario no valido!');
                 }
             });		
+        });
+    </script>
+    <script>
+        $('#prodDetailModal').on('hidden.bs.modal', function (e) {            
+            $( "#productsTable" ).html('');
+        });
+    </script>
+    <script>        
+		$(document).ready(function () {
+            $('#datepickerStart').datepicker('setDate', new Date('2021-01-01'));
+            $('#datepickerEnd').datepicker('setDate', new Date());
+            // var id = $(this).data('id');
+            // $.ajax({
+            //     type: "POST",
+            //     url: '../controller/sales/getSales.php',
+            //     dataType: 'json',
+            //     data: {function: 'showSales', arguments: [1, 2]},
+            //     success: function (obj, textstatus) {
+            //                 if( !('error' in obj) ) {
+            //                     yourVariable = obj.result;
+            //                 }
+            //                 else {
+            //                     console.log(obj.error);
+            //                 }
+            //             }
+            // });
         });
     </script>
 </body>
