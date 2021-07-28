@@ -153,7 +153,7 @@
             </form>
         </div>
         <div class="row g-4">
-            <div class="col">
+            <div class="col" id="saleTableData">
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -173,6 +173,22 @@
                     <tbody id='salesTable'>
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <?php
+                    if($_SESSION['TIPO']=='admin'){
+                        echo "
+                        <button class='btn btn-success' type='button' role='button' id='downloadReport' name='downloadReport'>
+                            Descargar Reporte Excel
+                            <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-download' viewBox='0 0 16 16'>
+                            <path d='M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z'/>
+                            <path d='M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z'/>
+                            </svg>
+                        </button>";
+                    }
+                ?>
             </div>
         </div>
 	</div>
@@ -384,13 +400,29 @@
                 $.ajax({
                     url:  '../controller/sales/getSales.php',
                     type: "POST",
-                    data: {function: 'showSales', startDate: startDate, endDate: endDate },
+                    data: {startDate: startDate, endDate: endDate },
                     success: function(response){
                         $( "#salesTable" ).html('');
                         $( "#salesTable" ).append(response);
                     }
                 });
-            })
+            });
+            $('#downloadReport').click(function(){
+                var startDate=$('#startDate').val();
+                var endDate=$('#endDate').val();
+                var excel_data = $('#saleTableData').html();
+                var page = encodeURI("../controller/sales/salesReport.php?startDate="+startDate+"&endDate="+endDate);
+                // console.log(page);
+                window.location = page;
+                // $.ajax({
+                //     url:  '../controller/sales/salesReport.php',
+                //     type: "POST",
+                //     data: {startDate: startDate, endDate: endDate },
+                //     success: function(response){
+                //         alert('Documento Descargado');
+                //     }
+                // });
+            });
         });
     </script>
 </body>

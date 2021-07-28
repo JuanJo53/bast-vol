@@ -29,8 +29,6 @@
 
     $startDate=date("Y-m-d", strtotime(strtr($newSDate,'/', '-')));
     $endDate=date("Y-m-d", strtotime(strtr($newEDate,'/', '-')));
-    echo $startDate."           ";
-    echo $endDate;
     echo showSalesDate($startDate,$endDate);
 
     function showSalesDate($startDate,$endDate){
