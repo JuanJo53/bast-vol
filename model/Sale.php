@@ -2,7 +2,7 @@
 include_once 'DataBase.php';
 	class Sale extends DB{
 		public function getAllSales($startDate,$endDate){
-			$sql = "SELECT v.VEN_ID, u.USR_NOMBRES, c.CLI_NOMBRE, a.ART_NOMBRE, dv.DV_CANTIDAD, v.VEN_TOTAL, v.VEN_FECHA
+			$sql = "SELECT v.VEN_ID, u.USR_NOMBRES, c.CLI_NOMBRE, c.CLI_NIT, a.ART_NOMBRE, dv.DV_CANTIDAD, v.VEN_TOTAL, v.VEN_FECHA
 					FROM venta v, detalleventa dv, usuario u, cliente c, articulo a
 					WHERE v.VEN_ID=dv.ID_VENTA 
 					AND v.ID_USUARIO=u.USR_ID 
@@ -10,7 +10,26 @@ include_once 'DataBase.php';
 					AND dv.ID_ARTICULO=a.ART_ID
 					AND dv.ID_VENTA=v.VEN_ID
 					AND v.VEN_FECHA BETWEEN '$startDate' and '$endDate'
-					AND dv.ID_VENTA=v.VEN_ID	
+					AND dv.ID_VENTA=v.VEN_ID					
+					GROUP BY v.VEN_ID
+					ORDER BY v.VEN_ID ASC";
+			$result = $this->connect()->query($sql);
+			if($result->num_rows>0){
+				return $result;
+			}else{
+				return false;
+			}
+		}
+		public function getSalesDetails($startDate,$endDate){
+			$sql = "SELECT v.VEN_ID, dv.DV_ID, u.USR_NOMBRES, c.CLI_NOMBRE, c.CLI_NIT, a.ART_NOMBRE, dv.DV_CANTIDAD, dv.DV_SUBTOTAL, v.VEN_FECHA, v.VEN_TOTAL
+					FROM venta v, detalleventa dv, usuario u, cliente c, articulo a
+					WHERE v.VEN_ID=dv.ID_VENTA 
+					AND v.ID_USUARIO=u.USR_ID 
+					AND v.ID_CLIENTE=c.CLI_ID 
+					AND dv.ID_ARTICULO=a.ART_ID
+					AND dv.ID_VENTA=v.VEN_ID
+					AND v.VEN_FECHA BETWEEN '$startDate' and '$endDate'
+					AND dv.ID_VENTA=v.VEN_ID
 					ORDER BY v.VEN_ID ASC";
 			$result = $this->connect()->query($sql);
 			if($result->num_rows>0){

@@ -20,20 +20,24 @@
     $startDate=date("Y-m-d", strtotime(strtr($newSDate,'/', '-')));
     $endDate=date("Y-m-d", strtotime(strtr($newEDate,'/', '-')));
 
-    function showSalesDate($startDate,$endDate,$eDate,$sDate){
+    function showSalesDetailsDate($startDate,$endDate,$eDate,$sDate){
         $sale = new Sale;
-        $sales = $sale->getAllSales($startDate,$endDate);
+        $sales = $sale->getSalesDetails($startDate,$endDate);
         $salesHtml="
-        <center><h1>REPORTE DE VENTAS</h1></center>
-        <center><h4><i>Este reporte es uno simplificado de la ventas registradas.</i></h4></center>
+        <center><h1>REPORTE DE VENTAS DETALLADO</h1></center>
+        <center><h4><i>Este reporte muestra los detalles de venta por articulo incluido en cada venta registrada.</i></h4></center>
         <center><h3>de ".$sDate." a ".$eDate."</h3></center>
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>ID VENTA</th>
+                    <th>ID DETALLE DE VENTA</th>
                     <th>EMPLEADO</th>
                     <th>CLIENTE</th>
                     <th>NIT CLIENTE</th>
+                    <th>ARTICULO</th>
+                    <th>CANTIDAD</th>
+                    <th>SUBTOTAL</th>
                     <th>TOTAL</th>
                     <th>FECHA</th>
                 </tr>
@@ -44,9 +48,13 @@
                 $salesHtml.="
                 <tr>
                     <td>".$row['VEN_ID']."</td>
+                    <td>".$row['DV_ID']."</td>
                     <td>".$row['USR_NOMBRES']."</td>
                     <td>".$row['CLI_NOMBRE']."</td>
                     <td>".$row['CLI_NIT']."</td>
+                    <td>".$row['ART_NOMBRE']."</td>
+                    <td>".$row['DV_CANTIDAD']."</td>
+                    <td>".$row['DV_SUBTOTAL']."</td>
                     <td>".$row['VEN_TOTAL']."</td>
                     <td>".date("d/m/Y", strtotime($row['VEN_FECHA']))."</td>
                 </tr>";
@@ -59,9 +67,9 @@
     }
     
     header("Content-Type: application/xls");
-    $filename="ReporteVentas_".date('d-m-Y').'.xls';
+    $filename="ReporteDetalleVentas_".date('d-m-Y').'.xls';
     header("Content-Disposition: attachment; filename=".$filename);
-    echo showSalesDate($startDate,$endDate,$eDate,$sDate);
+    echo showSalesDetailsDate($startDate,$endDate,$eDate,$sDate);
 
 
 ?>

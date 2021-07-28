@@ -42,6 +42,7 @@
                     <th scope='row'>".$row['VEN_ID']."</th>
                     <td>".$row['USR_NOMBRES']."</td>
                     <td>".$row['CLI_NOMBRE']."</td>
+                    <td>".$row['CLI_NIT']."</td>
                     <td>".$row['VEN_TOTAL']."</td>
                     <td>".date("d/m/Y", strtotime($row['VEN_FECHA']))."</td>
                     <td>
