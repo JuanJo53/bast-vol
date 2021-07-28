@@ -162,9 +162,9 @@
                             <th scope="col">CLIENTE</th>
                             <th scope="col">TOTAL</th>
                             <th scope="col">FECHA</th>
+                            <th scope='col'>Detalle</th>
                             <?php
                                 if($_SESSION['TIPO']=='admin'){
-                                    echo "<th scope='col'>Detalle</th>";
                                     echo "<th scope='col'>Eliminar</th>";
                                 }
                             ?>
