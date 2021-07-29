@@ -394,14 +394,7 @@
                         url:"../controller/sales/newSale.php", 
                         type: "POST",
                         data: { saleCliId: clientId, prodsList: JSON.stringify(prodsList)},
-                        success: function(response){
-                            if(response!=''){
-                                alert(response);
-                            }
-                            // else{
-                            //     location.reload();
-                            // }
-                        }
+
                     }) 
                 }else{
                     console.log('Formulario no valido!');
