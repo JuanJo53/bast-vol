@@ -44,8 +44,7 @@ include_once 'DataBase.php';
 					WHERE v.VEN_ID=dv.ID_VENTA 
 					AND v.ID_USUARIO=u.USR_ID 
 					AND v.ID_CLIENTE=c.CLI_ID 
-					AND v.ID_ARTICULO=a.ART_ID 
-					AND dv.ID_VENTA=v.VEN_ID 
+					AND dv.ID_ARTICULO=a.ART_ID
 					AND v.VEN_ID='$id'";
 			$result = $this->connect()->query($sql);
 			if($result->num_rows>0){

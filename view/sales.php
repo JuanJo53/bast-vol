@@ -30,7 +30,8 @@
                 success: function( data ) {
                     $( "#productsTable" ).append(data);
                 }
-            });
+            });            
+            $(".idInput #saleIdDet").val( id );
         });
     </script>
     <script>
@@ -270,6 +271,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body newSaleBody">
+                    <div class="mb-3 idInput">        
+                        <label for="prod_idE" class="col-form-label">ID de la venta:</label>
+                        <input type="text" class="form-control" id="saleIdDet" name="saleIdDet" readonly>
+                    </div>
                     <div class="row g-4">
                         <div class="col">
                             <table class="table table-hover">
@@ -289,6 +294,18 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <?php
+                        if($_SESSION['TIPO']=='admin'){
+                            echo "
+                            <button class='btn btn-success' type='button' role='button' id='downloadSingleSaleReportDetails' name='downloadSingleSaleReportDetails'>
+                                Descargar Detalle Excel
+                                <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-download' viewBox='0 0 16 16'>
+                                <path d='M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z'/>
+                                <path d='M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z'/>
+                                </svg>
+                            </button>";
+                        }
+                    ?>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Atras</button>
                 </div>
             </div>
@@ -377,8 +394,15 @@
                         url:"../controller/sales/newSale.php", 
                         type: "POST",
                         data: { saleCliId: clientId, prodsList: JSON.stringify(prodsList)},
+                        success: function(response){
+                            if(response!=''){
+                                alert(response);
+                            }
+                            // else{
+                            //     location.reload();
+                            // }
+                        }
                     }) 
-                    location.reload();
                 }else{
                     console.log('Formulario no valido!');
                 }
@@ -422,31 +446,18 @@
                 var startDate=$('#startDate').val();
                 var endDate=$('#endDate').val();
                 var page = encodeURI("../controller/sales/salesReport.php?startDate="+startDate+"&endDate="+endDate);
-                // console.log(page);
                 window.location = page;
-                // $.ajax({
-                //     url:  '../controller/sales/salesReport.php',
-                //     type: "POST",
-                //     data: {startDate: startDate, endDate: endDate },
-                //     success: function(response){
-                //         alert('Documento Descargado');
-                //     }
-                // });
             });
             $('#downloadReportDetails').click(function(){
                 var startDate=$('#startDate').val();
                 var endDate=$('#endDate').val();
                 var page = encodeURI("../controller/sales/salesDetailsReport.php?startDate="+startDate+"&endDate="+endDate);
-                // console.log(page);
                 window.location = page;
-                // $.ajax({
-                //     url:  '../controller/sales/salesReport.php',
-                //     type: "POST",
-                //     data: {startDate: startDate, endDate: endDate },
-                //     success: function(response){
-                //         alert('Documento Descargado');
-                //     }
-                // });
+            });
+            $('#downloadSingleSaleReportDetails').click(function(){
+                var saleId=$('#saleIdDet').val();
+                var page = encodeURI("../controller/sales/singleSaleDetailReport.php?saleId="+saleId);
+                window.location = page;
             });
         });
     </script>

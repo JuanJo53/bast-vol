@@ -63,5 +63,4 @@
     header("Content-Disposition: attachment; filename=".$filename);
     echo showSalesDate($startDate,$endDate,$eDate,$sDate);
 
-
 ?>
